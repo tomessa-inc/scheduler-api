@@ -54,7 +54,7 @@ func UpdateUser(c echo.Context) error {
 	json.Unmarshal([]byte(usherGroup), &userLV)
 
 	//	out, err := json.Marshal(userLV)
-	diff := conversion.differenceLV(userLV, userUsherGroup)
+	diff := conversion.DifferenceLV(userLV, userUsherGroup)
 
 	for i := 0; i < len(diff); i++ {
 		err2 := m.DeleteUserUsherGroupByUser(user.ID, diff[i])
@@ -106,7 +106,7 @@ func GetUsers(c echo.Context) error {
 	}
 
 	usersBytes, err := json.Marshal(users)
-	uersJson := ConvertStructToJSON(usersBytes)
+	uersJson := conversion.ConvertByteToJSON(usersBytes)
 
 	return c.JSON(http.StatusOK, uersJson)
 }
@@ -125,7 +125,7 @@ func GetUsersByPrefix(c echo.Context) error {
 	}
 
 	usersBytes, err := json.Marshal(users)
-	uersJson := ConvertStructToJSON(usersBytes)
+	uersJson := conversion.ConvertByteToJSON(usersBytes)
 
 	return c.JSON(http.StatusOK, uersJson)
 }

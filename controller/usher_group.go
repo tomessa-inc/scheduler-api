@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"scheduler-api/conversion"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
 	"strconv"
@@ -30,7 +31,7 @@ func GetUsherGroups(c echo.Context) error {
 	}
 
 	usherGroupBytes, err := json.Marshal(usherGroups)
-	usherGroupJson := ConvertStructToJSON(usherGroupBytes)
+	usherGroupJson := conversion.ConvertByteToJSON(usherGroupBytes)
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, "could not find gallery listing")

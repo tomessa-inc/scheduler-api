@@ -27,7 +27,7 @@ func ConvertArrayBytesToString(bytesData []byte) (map[string]string, error) {
 	//	fmt.Printf("json stirng data marsh int: %d\n", intData)
 	return makeString, err
 }
-func ConvertBytesToInt(stringData gjson.Result) (int, error) {
+func ConvertGibsonBytesToInt(stringData gjson.Result) (int, error) {
 	//	fmt.Printf("json stirng data marsh string hwerw: %s\n", stringData)
 	//	fmt.Printf("json stirng data marsh string raw: %s\n", stringData.Raw)
 	intData, err := strconv.Atoi(string([]byte(stringData.Raw)))
@@ -37,7 +37,7 @@ func ConvertBytesToInt(stringData gjson.Result) (int, error) {
 	return intData, err
 }
 
-func ConvertBytesToString(bytesData gjson.Result) string {
+func ConvertGibsonBytesToString(bytesData gjson.Result) string {
 	//	fmt.Printf("json stirng data marsh string hwerw: %s\n", stringData)
 	//	fmt.Printf("json stirng data marsh string raw: %s\n", stringData.Raw)
 	stringData := string([]byte(bytesData.Raw))
@@ -66,7 +66,7 @@ func ConvertBytesToStringArray(bytesData gjson.Result) []string {
 	return stringArray
 }
 
-func ConvertStructToJSON(bytesData []byte) map[string]interface{} {
+func ConvertByteToJSON(bytesData []byte) map[string]interface{} {
 	var jsonMap map[string]interface{}
 
 	stringData := string(bytesData[:])
@@ -85,34 +85,6 @@ func ConvertIntToString(number int) string {
 	return intNumberMonth
 }
 
-func GetIntDataFromJSONByKey(jsonInterface map[string]interface{}, key string) (int, error) {
-	//	fmt.Printf("json stirng data interface: %s\n", jsonInterface)
-	//	fmt.Printf("json stirng key: %s\n", key)
-
-	jsonBytes := ApplyMarshal(jsonInterface)
-	//	fmt.Printf("json stirng data marsh: %s\n", jsonBytes)
-
-	valueBytes := gjson.GetBytes(jsonBytes, key)
-	//	fmt.Printf("number starting month: %s\n", valueBytes)
-	valueInt, err := ConvertBytesToInt(valueBytes)
-	//	fmt.Printf("json stirng data marsh int: %d\n", valueInt)
-	return valueInt, err
-}
-
-func GetStringDataFromJSONByKey(jsonInterface map[string]interface{}, key string) string {
-	//	fmt.Printf("json stirng data interface: %s\n", jsonInterface)
-	//	fmt.Printf("json stirng key: %s\n", key)
-
-	jsonBytes := ApplyMarshal(jsonInterface)
-	//	fmt.Printf("json stirng data marsh: %s\n", jsonBytes)
-
-	valueBytes := gjson.GetBytes(jsonBytes, key)
-	//	fmt.Printf("number starting month: %s\n", valueBytes)
-	valueString := ConvertBytesToString(valueBytes)
-	//	fmt.Printf("json stirng data marsh int: %d\n", valueInt)
-	return valueString
-}
-
 func GetStringArrayDataFromJSONByKey(jsonInterface map[string]interface{}, key string) []string {
 	//	fmt.Printf("json stirng data interface: %s\n", jsonInterface)
 	//	fmt.Printf("json stirng key: %s\n", key)
@@ -128,23 +100,6 @@ func GetStringArrayDataFromJSONByKey(jsonInterface map[string]interface{}, key s
 	//fmt.Printf("json stirng data array string: %v\n", valueString)
 
 	return valueString
-}
-
-func GetJSONRawBody(c echo.Context) map[string]interface{} {
-
-	jsonBody := make(map[string]interface{})
-	err := json.NewDecoder(c.Request().Body).Decode(&jsonBody)
-	//fmt.Printf("error cehck: %s\n", err)
-	if err != nil {
-
-		//fmt.Printf("not nil jsonDatajson data: %s\n", err)
-		//log.Error("empty json body")
-		return nil
-	} else {
-		//	fmt.Printf("nil here jsonDatajson dataaaaa: %s\n", err)
-		//	fmt.Printf("end")
-		return jsonBody
-	}
 }
 
 func GetJSONRawBody2(c echo.Context) {
@@ -216,7 +171,7 @@ func difference(slice1 []string, slice2 []string) []string {
 	return diff
 }
 
-func differenceLV(changes []LV, source []e.UserUsherGroup) []string {
+func DifferenceLV(changes []e.LV, source []e.UserUsherGroup) []string {
 	var sourceCheck bool = true
 	var diff []string
 	//fmt.Printf("check out changes  %v", changes)

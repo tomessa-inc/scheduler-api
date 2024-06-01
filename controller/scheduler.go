@@ -34,7 +34,7 @@ func GetSchedule(c echo.Context) error {
 	list, err := m.GetSchedule(&schedule, pageIndex, pageSize, field, order)
 
 	usherGroupBytes, err := json.Marshal(list)
-	usherGroupJson := conversion.ConvertStructToJSON(usherGroupBytes)
+	usherGroupJson := conversion.ConvertByteToJSON(usherGroupBytes)
 
 	return c.JSON(http.StatusOK, usherGroupJson)
 
