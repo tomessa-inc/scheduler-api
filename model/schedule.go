@@ -17,18 +17,21 @@ func AddSchedule(schedule *e.Schedule) error {
 	//week.ID = "sdsdfsdfsdf"
 	//fmt.Printf("about to insert into db\n")
 	id := fmt.Sprintf("%s-%s", schedule.Week, schedule.UserUsherGroup)
+	createdAt := time.Now().Format("20060102150405")
 
-	const query = sg.Insert(`schedule`).
+	addIinsert, args, err := sg.Insert(`schedule`).
 		Columns(`id`, `week`, `user_usher_group`, `created_at`).
-		Values(id, schedule.Week, schedule.UserUsherGroup, time.Now().Format("20060102150405")).
+		Values(id, schedule.Week, schedule.UserUsherGroup, createdAt).
 		ToSql()
+
+	fmt.Println(args)
 	fmt.Println("time")
 	fmt.Println(time.Now().Format("20060102150405"))
 	tx, err := db.DB.Begin()
 
-	id := fmt.Sprintf("%s-%s", schedule.Week, schedule.UserUsherGroup)
+	//id := fmt.Sprintf("%s-%s", schedule.Week, schedule.UserUsherGroup)
 
-	_, err = tx.Exec(query, id, schedule.Week, schedule.UserUsherGroup, time.Now().Format("20060102150405"))
+	_, err = tx.Exec(addIinsert, id, schedule.Week, schedule.UserUsherGroup, createdAt)
 
 	if err != nil {
 		fmt.Printf("Error in SQL: %s\n", err)

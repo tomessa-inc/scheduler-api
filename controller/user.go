@@ -71,7 +71,7 @@ func UpdateUser(c echo.Context) error {
 	return c.JSON(http.StatusCreated, e.SetResponse(http.StatusCreated, "ok", EmptyValue))
 }
 
-func getMyString(items []LV) (string, error) {
+func getMyString(items []e.LV) (string, error) {
 
 	var buffer bytes.Buffer
 	var err error
