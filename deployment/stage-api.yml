@@ -9,7 +9,7 @@ phases:
       - add-apt-repository ppa:longsleep/golang-backports
       - apt update -y
       - apt install -y golang-go
-    #  - go --version
+      - go version
       - echo Logging in to Amazon ECR...
       - aws --version
       - sam --version
