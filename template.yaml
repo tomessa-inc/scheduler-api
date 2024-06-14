@@ -21,7 +21,7 @@ Resources:
   Api:
     Type: AWS::Serverless::Function
     Properties:
-      Runtime: golang:latest
+      Runtime: go1.x
       Handler: api
       Timeout: 10
       Policies:
