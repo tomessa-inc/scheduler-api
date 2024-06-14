@@ -6,6 +6,10 @@ phases:
       - git config --global credential.UseHttpPath true
   pre_build:
     commands:
+      - add-apt-repository ppa:longsleep/golang-backports
+      - apt update
+      - apt install golang-go
+      - go --version
       - echo Logging in to Amazon ECR...
       - aws --version
       - sam --version
