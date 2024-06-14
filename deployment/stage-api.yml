@@ -7,8 +7,8 @@ phases:
   pre_build:
     commands:
       - add-apt-repository ppa:longsleep/golang-backports
-      - apt update
-      - apt install golang-go
+      - apt update -y
+      - apt install -y golang-go
       - go --version
       - echo Logging in to Amazon ECR...
       - aws --version
