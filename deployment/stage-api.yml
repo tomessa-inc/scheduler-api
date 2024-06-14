@@ -17,6 +17,8 @@ phases:
       - npm install jq
   build:
     commands:
+      - sam build
+      - sam deploy --guided
   #    - echo "In the building process"
   #    - echo $DB_INFO
   #    - echo "the username"
