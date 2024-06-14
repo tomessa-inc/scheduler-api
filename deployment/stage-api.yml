@@ -10,7 +10,7 @@ phases:
       - apt update -y
       - apt install -y golang-go
       - go version
-      - go1.22.7 env GOROOT
+      - go1.22.4 env GOROOT
       - echo Logging in to Amazon ECR...
       - aws --version
       - sam --version
