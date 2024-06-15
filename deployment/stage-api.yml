@@ -13,6 +13,8 @@ phases:
       - which go
       - ls -al /usr/bin/go
       - ls -al /root/.goenv/shims/go
+      - rm /root/.goenv/shims/go
+      - which go
       - echo $PATH
       - echo Logging in to Amazon ECR...
       - aws --version
