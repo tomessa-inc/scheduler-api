@@ -28,7 +28,7 @@ phases:
   build:
     commands:
       - sam build
-      - sam deploy --guided
+      - sam deploy
   #    - echo "In the building process"
   #    - echo $DB_INFO
   #    - echo "the username"
