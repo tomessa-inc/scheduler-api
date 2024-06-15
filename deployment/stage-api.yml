@@ -11,7 +11,7 @@ phases:
       - apt install -y golang-go
       - go version
       - which go
-      - go1.22.4 env GOROOT
+      - ls -al /usr/bin/go
       - echo Logging in to Amazon ECR...
       - aws --version
       - sam --version
