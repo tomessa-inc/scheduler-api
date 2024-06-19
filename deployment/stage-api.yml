@@ -6,14 +6,14 @@ phases:
       - git config --global credential.UseHttpPath true
   pre_build:
     commands:
-      - add-apt-repository ppa:longsleep/golang-backports
-      - apt update -y
-      - apt install -y golang-go
-      - go version
-      - which go
-      - ls -al /usr/bin/go
-      - ls -al /root/.goenv/shims/go
-      - rm /root/.goenv/shims/go
+  #    - add-apt-repository ppa:longsleep/golang-backports
+  #    - apt update -y
+ #     - apt install -y golang-go
+ #     - go version
+   #   - which go
+    #  - ls -al /usr/bin/go
+     # - ls -al /root/.goenv/shims/go
+     # - rm /root/.goenv/shims/go
       - which go
       - echo $PATH
       - echo Logging in to Amazon ECR...
