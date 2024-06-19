@@ -9,7 +9,7 @@ phases:
   #    - add-apt-repository ppa:longsleep/golang-backports
   #    - apt update -y
  #     - apt install -y golang-go
- #     - go version
+      - go version
    #   - which go
     #  - ls -al /usr/bin/go
      # - ls -al /root/.goenv/shims/go
