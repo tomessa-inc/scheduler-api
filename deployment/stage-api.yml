@@ -14,6 +14,8 @@ phases:
 #      - npm install jq
   build:
     commands:
+      - pwd
+      - ls -al
       - sam build
       - sam deploy
   #    - echo "In the building process"
