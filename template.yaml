@@ -31,17 +31,17 @@ Resources:
           Type: Api
           Properties:
             Path: '/'
-            Method: get
+            Method: any
         AuthSignIn:
           Type: Api
           Properties:
             Path: '/auth/sign-in'
-            Method: post
+            Method: any
         AuthSignOut:
           Type: Api
           Properties:
             Path: '/auth/sign-out'
-            Method: post
+            Method: any
     Metadata:
       BuildMethod: makefile
 Outputs:
