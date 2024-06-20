@@ -7,7 +7,7 @@ Parameters:
   Stage:
     Type: String
     Description: Bucket for Images
-    Default: $Stage
+    Default: Stage
 
 Resources:
   ExpressApi:
