@@ -3,33 +3,28 @@ Transform: AWS::Serverless-2016-10-31
 
 Description: An example serverless API and worker written in Golang.
 
+Parameters:
+  Stage:
+    Type: String
+    Description: Bucket for Images
+    Default: $Stage
+
 Resources:
-
-  Queue:
-    Type: AWS::SQS::Queue
+  ExpressApi:
+    Type: AWS::Serverless::Api
     Properties:
-      VisibilityTimeout: 20
-      RedrivePolicy:
-        deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
-        maxReceiveCount: 3
-
-  DeadLetterQueue:
-    Type: AWS::SQS::Queue
-    Properties:
-      VisibilityTimeout: 15
-
+      StageName: !Ref Stage
+      BinaryMediaTypes:
+        - image/png
+        - image/jpg
+        - image/jpeg
+        - multipart/form-data
   Api:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: go1.x
-      Handler: api
+      Handler: scheduler-api
       Timeout: 10
-      Policies:
-        - SQSSendMessagePolicy:
-            QueueName: !GetAtt Queue.QueueName
-      Environment:
-        Variables:
-          QUEUE_URL: !Ref Queue
       Events:
         RootHandler:
           Type: Api
