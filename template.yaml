@@ -27,22 +27,22 @@ Resources:
       Runtime: provided.al2
       Handler: lambda.handler
       Timeout: 10
-      Events:
-        RootHandler:
-          Type: Api
-          Properties:
-            Path: '/'
-            Method: get
-        AuthSignIn:
-          Type: Api
-          Properties:
-            Path: '/auth/sign-in'
-            Method: post
-        AuthSignOut:
-          Type: Api
-          Properties:
-            Path: '/auth/sign-out'
-            Method: post
+  #    Events:
+  #      RootHandler:
+  #        Type: Api
+  #        Properties:
+  #          Path: '/'
+  #          Method: get
+  #      AuthSignIn:
+  #        Type: Api
+  #        Properties:
+  #          Path: '/auth/sign-in'
+  #          Method: post
+  ###      AuthSignOut:
+    ##      Type: Api
+      #    Properties:
+      #      Path: '/auth/sign-out'
+      #      Method: post
     Metadata:
       BuildMethod: makefile
 Outputs:
