@@ -22,26 +22,26 @@ Resources:
   SchedulerApi:
     Type: AWS::Serverless::Function
     Properties:
-    #@  CodeUri: scheduler-api/
+      CodeUri: ./scheduler-api
       Runtime: provided.al2
-      Handler: bootstrap
+      Handler: lambda.handler
       Timeout: 10
       Events:
         RootHandler:
           Type: Api
           Properties:
             Path: '/'
-            Method: any
+            Method: get
         AuthSignIn:
           Type: Api
           Properties:
             Path: '/auth/sign-in'
-            Method: any
+            Method: post
         AuthSignOut:
           Type: Api
           Properties:
             Path: '/auth/sign-out'
-            Method: any
+            Method: post
     Metadata:
       BuildMethod: makefile
 Outputs:
