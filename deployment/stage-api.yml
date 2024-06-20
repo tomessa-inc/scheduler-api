@@ -32,7 +32,7 @@ phases:
       #   TOKEN_SECRET: $TOKEN_SECRET
 
  #     - export NODE_ENV=$(echo "$DB_INFO" | jq -r '.NODE_ENV')
-
+      - ls
 
       #  - echo "$DB_INFO" | jq -r '.DB_HOST'
   #    - npm run deploy-stage
