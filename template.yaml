@@ -22,7 +22,7 @@ Resources:
   SchedulerApi:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./scheduler-api
+    #  CodeUri: ./scheduler-api
       PackageType: Zip
       Runtime: provided.al2
       Handler: lambda.handler
