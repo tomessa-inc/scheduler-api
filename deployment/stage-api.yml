@@ -16,6 +16,7 @@ phases:
     commands:
       - pwd
       - ls -al
+      - go build scheduler-api
       - sam build
       - sam deploy
   #    - echo "In the building process"
