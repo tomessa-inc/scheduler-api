@@ -19,7 +19,7 @@ Resources:
         - image/jpg
         - image/jpeg
         - multipart/form-data
-  Api:
+  SchedulerApi:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: provided.al2
@@ -44,7 +44,3 @@ Resources:
 Outputs:
   Endpoint:
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
-  QueueUrl:
-    Value: !Ref Queue
-  DeadLetterQueueUrl:
-    Value: !Ref DeadLetterQueue
