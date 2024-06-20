@@ -28,12 +28,12 @@ Resources:
       Handler: lambda.handler
       Timeout: 10
       Events:
-        RootHandler:
-          Type: Api
-          Properties:
-            RestApiId: !Ref ApiGateway
-            Path: '/'
-            Method: get
+      #  RootHandler:
+      #    Type: Api
+     #     Properties:
+     #       RestApiId: !Ref ApiGateway
+     #       Path: '/'
+     #       Method: get
         AuthSignIn:
           Type: Api
           Properties:
