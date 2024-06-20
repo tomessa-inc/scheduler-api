@@ -17,7 +17,9 @@ phases:
       - pwd
       - ls -al
   #    - go build scheduler-api
-      - sam build
+#      - sam build
+      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page
+#      - api-stage.scheduler.page
       - sam deploy
   #    - echo "In the building process"
   #    - echo $DB_INFO
