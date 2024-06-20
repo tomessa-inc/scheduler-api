@@ -41,6 +41,8 @@ Resources:
           Properties:
             Path: '/auth/sign-out'
             Method: post
+    Metadata:
+      BuildMethod: makefile
 Outputs:
   Endpoint:
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
