@@ -31,9 +31,9 @@ phases:
   #    - export DB_NAME=$(echo "$DB_INFO" | jq -r '.DB_NAME')
       #   TOKEN_SECRET: $TOKEN_SECRET
 
-      - export NODE_ENV=$(echo "$DB_INFO" | jq -r '.NODE_ENV')
+ #     - export NODE_ENV=$(echo "$DB_INFO" | jq -r '.NODE_ENV')
 
 
       #  - echo "$DB_INFO" | jq -r '.DB_HOST'
-      - npm run deploy-stage
+  #    - npm run deploy-stage
 
