@@ -14,8 +14,7 @@ phases:
 #      - npm install jq
   build:
     commands:
-      - pwd
-      - ls -al
+      - go version
   #    - go build scheduler-api
       - sam build --template template.yaml
       - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page
