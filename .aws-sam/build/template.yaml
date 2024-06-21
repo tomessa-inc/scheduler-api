@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An example serverless API and worker written in Golang.
+Parameters:
+  Stage:
+    Type: String
+    Description: Bucket for Images
+    Default: stage
+Resources:
+  ApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName:
+        Ref: Stage
+      BinaryMediaTypes:
+      - image/png
+      - image/jpg
+      - image/jpeg
+      - multipart/form-data
+  SchedulerApi:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Zip
+      Runtime: provided.al2
+      Handler: lambda.handler
+      Timeout: 10
+      Events:
+        AuthSignIn:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGateway
+            Path: /auth/sign-in
+            Method: post
+        AuthSignOut:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGateway
+            Path: /auth/sign-out
+            Method: post
+      CodeUri: SchedulerApi
+    Metadata:
+      BuildMethod: makefile
+      SamResourceId: SchedulerApi
+Outputs:
+  Endpoint:
+    Value:
+      Fn::Sub: https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/
