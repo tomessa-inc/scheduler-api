@@ -1,6 +1,6 @@
 module scheduler-api
 
-go 1.22
+go 1.22.4
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
