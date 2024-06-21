@@ -14,7 +14,7 @@ phases:
 #      - npm install jq
   build:
     commands:
-      - go version
+ #     - go version
   #    - go install golang.org/x/tools/gopls@latest
   #    - go get github.com/aws/aws-lambda-go/lambda
   ##    - go get github.com/labstack/echo/v4
