@@ -17,7 +17,7 @@ phases:
       - go version
       - go install golang.org/x/tools/gopls@latest
       - go get github.com/aws/aws-lambda-go/lambda
-      - gp get github.com/labstack/echo
+      - go get github.com/labstack/echo
    #   - cat /tmp/tmpdj5oxyfv/go.mod
   #    - go build scheduler-api
       - sam build --template template.yaml
