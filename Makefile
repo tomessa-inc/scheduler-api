@@ -26,7 +26,7 @@ update:
 	go get -u ./...
 
 build-SchedulerApi: ./main.go
-	go build scheduler-api
+	go build scheduler-api -o api
 
 
 scheduler-api: ./main.go
