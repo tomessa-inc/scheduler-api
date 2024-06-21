@@ -24,7 +24,6 @@ phases:
     #  - sam build --template template.yaml
       - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
     #  - go build scheduler-api
-      - ls -alR
       - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page
 #      - api-stage.scheduler.page
       - sam deploy
@@ -39,7 +38,6 @@ phases:
       #   TOKEN_SECRET: $TOKEN_SECRET
 
  #     - export NODE_ENV=$(echo "$DB_INFO" | jq -r '.NODE_ENV')
-      - ls
 
       #  - echo "$DB_INFO" | jq -r '.DB_HOST'
   #    - npm run deploy-stage
