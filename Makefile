@@ -26,7 +26,7 @@ update:
 	go get -u ./...
 
 build-SchedulerApi: ./main.go
-	go build scheduler-api -o ./api
+	go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
 
 
 scheduler-api: ./main.go

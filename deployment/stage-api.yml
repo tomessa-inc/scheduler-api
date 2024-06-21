@@ -21,8 +21,8 @@ phases:
       - go get -d ./...
    #   - cat /tmp/tmpdj5oxyfv/go.mod
   #    - go build scheduler-api
-    #  - sam build --template template.yaml
-      - go build scheduler-api
+      - sam build --template template.yaml
+    #  - go build scheduler-api
       - ls -alR
       - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page
 #      - api-stage.scheduler.page
