@@ -22,7 +22,7 @@ phases:
    #   - cat /tmp/tmpdj5oxyfv/go.mod
   #    - go build scheduler-api
       - sam build --template template.yaml
-      - ls -al
+      - ls -alR
       - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page
 #      - api-stage.scheduler.page
       - sam deploy
