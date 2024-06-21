@@ -25,8 +25,12 @@ install:
 update:
 	go get -u ./...
 
+build-SchedulerApi: ./main.go
+	go build scheduler-api
+
+
 scheduler-api: ./main.go
-	go build scheudler-api
+	go build scheduler-api
 
 .PHONY: lambda
 lambda:

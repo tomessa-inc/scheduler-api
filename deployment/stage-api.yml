@@ -17,7 +17,7 @@ phases:
       - pwd
       - ls -al
   #    - go build scheduler-api
-#      - sam build
+      - sam build --template template.yaml
       - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page
 #      - api-stage.scheduler.page
       - sam deploy
