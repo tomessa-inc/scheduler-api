@@ -19,9 +19,10 @@ phases:
   #    - go get github.com/aws/aws-lambda-go/lambda
   ##    - go get github.com/labstack/echo/v4
      # - go get -d ./...
-      - docker build --platform linux/amd64 -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest .
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125399219.dkr.ecr.us-east-1.amazonaws.com
-      - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
+      - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
+     # - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125399219.dkr.ecr.us-east-1.amazonaws.com
+    #  - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
    #   - cat /tmp/tmpdj5oxyfv/go.mod
   #    - go build scheduler-api
     #  - sam build --template template.yaml
