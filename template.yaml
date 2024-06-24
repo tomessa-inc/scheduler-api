@@ -22,9 +22,9 @@ Resources:
   SchedulerApi:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./
-      PackageType: Zip
-      Runtime: provided.al2
+      CodeUri: ImageUri=211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
+      PackageType: Image
+      Runtime: provided.al2023
       Handler: lambda.handler
       Timeout: 10
       Events:
