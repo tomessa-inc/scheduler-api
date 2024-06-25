@@ -26,12 +26,12 @@ phases:
     #  - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
    #   - cat /tmp/tmpdj5oxyfv/go.mod
   #    - go build scheduler-api
-    #  - sam build --template template.yaml
+      - sam build --template template.yaml
 #      - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
     #  - go build scheduler-api
- #     - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page
+      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page
 #      - api-stage.scheduler.page
-  #    - sam deploy
+      - sam deploy
   #    - echo "In the building process"
   #    - echo $DB_INFO
   #    - echo "the username"
