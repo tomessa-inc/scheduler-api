@@ -29,7 +29,7 @@ phases:
       - sam build --template template.yaml
 #      - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
     #  - go build scheduler-api
-      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page
+      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
 #      - api-stage.scheduler.page
       - sam deploy
   #    - echo "In the building process"
