@@ -1,4 +1,4 @@
-FROM golang:1.22.4-bulleye as build
+FROM golang:1.22.4-bullseye as build
 RUN mkdir -p /scheduler
 WORKDIR /scheduler
 # Copy dependencies list
