@@ -4,7 +4,7 @@ WORKDIR /scheduler
 # Copy dependencies list
 # Build with optional lambda.norpc tag
 COPY . .
-RUN go get -d ./...
+RUN go get -d .
 RUN go build  -o main main.go
 # Copy artifacts to a clean image
 FROM public.ecr.aws/lambda/provided:al2023
