@@ -57,7 +57,7 @@ phases:
 
       - sam build --template template.yaml
       - sam validate
-      - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
+     # - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
 
     #  - go build scheduler-api
 
