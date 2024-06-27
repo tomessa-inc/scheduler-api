@@ -16,11 +16,13 @@ region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = false
 
+
 [default.sync.parameters]
 watch = true
 
 [default.local_start_api.parameters]
 warm_containers = "EAGER"
+port=3500
 
 [prod]
 [prod.sync]
