@@ -20,12 +20,12 @@ RUN ls -al
     #		os.Getenv("db_name"))
 
 RUN go get -t -x
-RUN go build  -o main main.go
+RUN go build scheduler-api
 # Copy artifacts to a clean image
 FROM public.ecr.aws/lambda/provided:al2023
 
-COPY --from=build /scheduler/main ./main
-COPY --from=build /scheduler/.env ./main
+COPY --from=build /scheduler/scheduler-api ./scheduler-api
+COPY --from=build /scheduler/.env ./.env
 EXPOSE 3500
 
-ENTRYPOINT [ "./main" ]
+ENTRYPOINT [ "./scheduler-api" ]
