@@ -42,9 +42,9 @@ phases:
       -  echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_LOGIN --password-stdin
       - docker-compose build
       - docker-compose up -d
-      - docker ps -a > ./test
-      - cat ./test
-      - docker -t scheduler-api-scheduler golang:latest
+      - docker ps -a
+
+  #    - docker -t scheduler-api-scheduler golang:latest
 #      - docker --tag  golang:latest 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
 #      - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
 #        build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
