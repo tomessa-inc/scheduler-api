@@ -40,7 +40,7 @@ phases:
    #   - docker build --build-arg DB_HOST=$DB_HOST DB_USERNAME=$DB_USERNAME DB_NAME=$DB_NAME DB_PASSWORD=$DB_PASSWORD  -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
     #  - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
       -  echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_LOGIN --password-stdin
-      - docker-compose build -t golang:latest
+      - docker-compose build
       - docker-compose up -d
       - docker ps -a
 
