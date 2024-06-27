@@ -36,7 +36,13 @@ phases:
      # - go get -d ./...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125399219.dkr.ecr.us-east-1.amazonaws.com
    #   - docker build --build-arg DB_HOST=$DB_HOST DB_USERNAME=$DB_USERNAME DB_NAME=$DB_NAME DB_PASSWORD=$DB_PASSWORD  -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
-      - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
+    #  - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
+      - docker-compose build
+      - docker-compose up -d
+      - docker -t scheduler-api-scheduler golang:latest
+      - docker -t  golang:latest 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+      - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+#        build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
 
      # - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125399219.dkr.ecr.us-east-1.amazonaws.com
     #  - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
