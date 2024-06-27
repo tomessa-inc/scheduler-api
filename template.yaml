@@ -22,10 +22,11 @@ Resources:
   SchedulerApi:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ImageUri=211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
+      ImageUri: 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
       PackageType: Image
-      Runtime: provided.al2023
-      Handler: lambda.handler
+      CodeUri: .
+  #    Runtime: provided.al2023
+  #    Handler: lambda.handler
       Timeout: 10
       Events:
       #  RootHandler:

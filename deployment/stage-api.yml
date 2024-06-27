@@ -1,4 +1,8 @@
 version: 0.2
+env:
+  secrets-manager:
+    DB_INFO: arn:aws:secretsmanager:us-east-1:211125399219:secret:DB_INFO_STAGE-9WX9p0
+
 phases:
   install:
     commands:
@@ -6,12 +10,23 @@ phases:
       - git config --global credential.UseHttpPath true
   pre_build:
     commands:
-      - aws s3 sync s3://config.scheduler.page/config/ ./config/
+      - aws s3 sync s3://config.scheduler.page/stage .
+      - cp envstage .env
       #     - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 955552760689.dkr.ecr.us-east-1.amazonaws.com
       #      - npm install babel-plugin-transform-runtime --save
       #      - npm install babel-preset-env --save
 #      - npm install -g cross-env
 #      - npm install jq
+
+      - export DB_USERNAME=$(echo "$DB_INFO" | jq -r '.DB_USERNAME')
+        #    - echo $DB_USERNAME
+      - export DB_HOST=$(echo "$DB_INFO" | jq -r '.DB_HOST')
+      - export DB_PASSWORD=$(echo "$DB_INFO" | jq -r '.DB_PASSWORD')
+      - export DB_NAME=$(echo "$DB_INFO" | jq -r '.DB_NAME')
+      #   TOKEN_SECRET: $TOKEN_SECRET
+
+  #     - export NODE_ENV=$(echo "$DB_INFO" | jq -r '.NODE_ENV')
+
   build:
     commands:
  #     - go version
@@ -21,17 +36,20 @@ phases:
      # - go get -d ./...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125399219.dkr.ecr.us-east-1.amazonaws.com
       - pwd
+   #   - docker build --build-arg DB_HOST=$DB_HOST DB_USERNAME=$DB_USERNAME DB_NAME=$DB_NAME DB_PASSWORD=$DB_PASSWORD  -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
       - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
+
      # - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125399219.dkr.ecr.us-east-1.amazonaws.com
     #  - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
    #   - cat /tmp/tmpdj5oxyfv/go.mod
   #    - go build scheduler-api
       - sam build --template template.yaml
+      - sam validate
 #      - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
     #  - go build scheduler-api
-      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
+      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
 #      - api-stage.scheduler.page
-      - sam deploy
+      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
   #    - echo "In the building process"
   #    - echo $DB_INFO
   #    - echo "the username"
