@@ -42,6 +42,7 @@ phases:
       -  echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_LOGIN --password-stdin
       - docker-compose build
       - docker-compose up -d
+      - cat ./docker-compose.yml
       - docker ps -a
 
   #    - docker -t scheduler-api-scheduler golang:latest

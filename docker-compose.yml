@@ -3,7 +3,7 @@ version: '3'
 services:
   scheduler:
     build: .
-    container_name: scheduler
+    container_name: scheduler-api
     dns:
       - 8.8.8.8
       - 8.8.4.4
