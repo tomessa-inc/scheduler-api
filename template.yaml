@@ -22,6 +22,7 @@ Resources:
   SchedulerApi:
     Type: AWS::Serverless::Function
     Properties:
+      Role: arn:aws:iam::211125399219:role/lambda-role
       ImageUri: 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
       PackageType: Image
       CodeUri: .
