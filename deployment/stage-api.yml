@@ -23,6 +23,8 @@ phases:
       - export DB_HOST=$(echo "$DB_INFO" | jq -r '.DB_HOST')
       - export DB_PASSWORD=$(echo "$DB_INFO" | jq -r '.DB_PASSWORD')
       - export DB_NAME=$(echo "$DB_INFO" | jq -r '.DB_NAME')
+      - export DOCKER_LOGIN=$(echo "$DB_INFO" | jq -r '.DOCKER_LOGIN')
+      - export DOCKER_PASSWORD=$(echo "$DB_INFO" | jq -r '.DOCKER_PASSWORD')
       #   TOKEN_SECRET: $TOKEN_SECRET
 
   #     - export NODE_ENV=$(echo "$DB_INFO" | jq -r '.NODE_ENV')
@@ -37,24 +39,33 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125399219.dkr.ecr.us-east-1.amazonaws.com
    #   - docker build --build-arg DB_HOST=$DB_HOST DB_USERNAME=$DB_USERNAME DB_NAME=$DB_NAME DB_PASSWORD=$DB_PASSWORD  -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
     #  - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
-      - docker-compose build
-      - docker-compose up -d
-      - docker --tag scheduler-api-scheduler golang:latest
-      - docker --tag  golang:latest 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
-      - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+      -  echo "$DOCKER_LOGIN" "$DOCKER_PASSWORD" | docker login
+#      - docker-compose build
+#      - docker-compose up -d
+#      - docker --tag scheduler-api-scheduler golang:latest
+#      - docker --tag  golang:latest 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+#      - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
 #        build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
 
      # - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125399219.dkr.ecr.us-east-1.amazonaws.com
     #  - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
    #   - cat /tmp/tmpdj5oxyfv/go.mod
   #    - go build scheduler-api
-      - sam build --template template.yaml
-      - sam validate
-#      - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
+
+
+    #  - sam build --template template.yaml
+    #  - sam validate
+    #  - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
+
     #  - go build scheduler-api
-      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+
+
+#      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+
 #      - api-stage.scheduler.page
-      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+
+ #     - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+
   #    - echo "In the building process"
   #    - echo $DB_INFO
   #    - echo "the username"
