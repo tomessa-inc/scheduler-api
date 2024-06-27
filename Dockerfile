@@ -4,7 +4,7 @@ WORKDIR /scheduler
 # Copy dependencies list
 # Build with optional lambda.norpc tag
 COPY . .
-RUN ls -al
+
 #RUN go get -d ./...
 
 #ARG DB_USERNAME
