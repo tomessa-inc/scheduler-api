@@ -38,6 +38,6 @@ func main() {
 	//		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	//	}))
 	r.InitRoutes(e)
-	e.Logger.Fatal(e.Start(":3500"))
+	//e.Logger.Fatal(e.Start(":3500"))
 	lambda.Start(Handler)
 }
