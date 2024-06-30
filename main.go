@@ -18,7 +18,7 @@ var echoLambda *echoadapter.EchoLambda
 type Response events.APIGatewayProxyResponse
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	//return echoLambda.ProxyWithContext(ctx, req)
+	return echoLambda.ProxyWithContext(ctx, req)
 	//	return Response{Body: "It works!", StatusCode: 200}, nil
 }
 
