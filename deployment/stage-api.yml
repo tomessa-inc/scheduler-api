@@ -44,8 +44,8 @@ phases:
       - docker-compose up -d
       - docker ps -a
       - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
-      - docker tag scheduler-api golang:latest
-      - docker golang:latest 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+   #   - docker tag scheduler-api golang:latest
+   #   - docker golang:latest 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
 #      - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
 #        build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest . --push
 
