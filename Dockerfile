@@ -23,7 +23,7 @@ RUN go get -t -x
 RUN go build scheduler-api
 # Copy artifacts to a clean image
 FROM public.ecr.aws/lambda/provided:al2023
-
+ENV LAMBDA=true
 COPY --from=build /scheduler/scheduler-api ./scheduler-api
 COPY --from=build /scheduler/.env ./.env
 EXPOSE 3500
