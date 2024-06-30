@@ -18,8 +18,12 @@ var echoLambda *echoadapter.EchoLambda
 type Response events.APIGatewayProxyResponse
 
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	return echoLambda.ProxyWithContext(ctx, req)
+	//return echoLambda.ProxyWithContext(ctx, req)
 	//	return Response{Body: "It works!", StatusCode: 200}, nil
+}
+
+func Handler2(ctx context.Context, request events.LambdaFunctionURLRequest) (Response, error) {
+	return Response{Body: "It works!", StatusCode: 200}, nil
 }
 
 func main() {
@@ -50,7 +54,7 @@ func main() {
 	if isLambda == "TRUE" {
 		//		lambdaAdapter := &LambdaAdapter{Echo: e}
 		//		lambda.Start(lambdaAdapter.Handler)
-		lambda.Start(Handler)
+		lambda.Start(Handler2)
 	} else {
 		e.Logger.Fatal(e.Start(":1234"))
 	}
