@@ -271,7 +271,9 @@ func GetUserInfoByEmailAndPassword(user e.User) (e.User, error) {
 	//		From("user").
 	//		Where(sg.Eq{"user.email": user.Email, "user.password": user.Password}).ToSql()
 
+	fmt.Println("userSQL")
 	fmt.Println(userSQL)
+	fmt.Println("args")
 	fmt.Println(args)
 
 	rows, err := db.DB.Queryx(userSQL, user.Email, user.Password)
