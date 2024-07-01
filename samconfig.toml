@@ -23,10 +23,8 @@ watch = true
 
 [default.local_start_api.parameters]
 warm_containers = "EAGER"
-port=3500
 
 [default.local_start_lambda]
-port=3500
 
 [prod]
 [prod.sync]
