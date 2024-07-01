@@ -6,7 +6,6 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"os"
 	c "scheduler-api/config"
 	"scheduler-api/db"
 	r "scheduler-api/routes"
@@ -40,14 +39,14 @@ func main() {
 	//		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	//	}))
 	r.InitRoutes(e)
-	isLambda := os.Getenv("LAMBDA")
+	//	isLambda := os.Getenv("LAMBDA")
 
-	if isLambda == "TRUE" {
+	if "TRUE" == "TRUE" {
 		//		lambdaAdapter := &LambdaAdapter{Echo: e}
 		//		lambda.Start(lambdaAdapter.Handler)
 		lambda.Start(Handler)
 	} else {
-		e.Logger.Fatal(e.Start(":3500"))
+		e.Logger.Fatal(e.Start(":3600"))
 	}
 	//e.Logger.Fatal(e.Start(":3500"))
 	//lambda.Start(Handler)
