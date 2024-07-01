@@ -18,8 +18,11 @@ var (
 
 func SignIn(c echo.Context) error {
 	var user e.User
-	err := c.Bind(&user)
 
+	fmt.Println("user")
+
+	err := c.Bind(&user)
+	fmt.Println(user)
 	///if err != nil {
 	//		return c.JSON(http.StatusUnprocessableEntity, err.Error())
 	//	}
