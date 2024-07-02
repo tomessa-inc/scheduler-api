@@ -75,7 +75,9 @@ func main() {
 		//	lambda.Start(lambdaAdapter.Handler)
 		//		lambdaAdapter := &LambdaAdapter{Echo: e}
 		//		lambda.Start(lambdaAdapter.Handler)
-		lambda.Start(wrapRouter)
+		server := wrapRouter(e)
+
+		lambda.Start(server)
 	} else {
 		e.Logger.Fatal(e.Start(":3600"))
 	}
