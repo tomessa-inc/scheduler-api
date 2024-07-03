@@ -55,7 +55,7 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
-	echoLambda = echoadapter.New(e)
+	//	echoLambda = echoadapter.New(e)
 	//e.Use(middleware.CORS())
 	//e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 	//	AllowOrigins: []string{"*"},

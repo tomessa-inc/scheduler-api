@@ -19,6 +19,9 @@ var (
 func SignIn(c echo.Context) error {
 	var user e.User
 
+	fmt.Println("the c")
+	fmt.Println(c)
+
 	fmt.Println("user")
 
 	err := c.Bind(&user)
