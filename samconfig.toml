@@ -11,8 +11,8 @@ debug=true
 
 [default.deploy.parameters]
 stack_name = "goLangSchedulerAPI"
-s3_bucket = "api-stage.scheduler.page"
-s3_prefix = "scheduler-dashboard"
+s3_bucket = "code-pipeline-api-211125399219"
+s3_prefix = "api"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = false
