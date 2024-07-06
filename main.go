@@ -105,7 +105,8 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		fmt.Println(req)
 		fmt.Println("req2")
 		fmt.Println("req3")
-
+		goo := "ffff"
+		fmt.Println(goo)
 		q := req.URL.Query()
 		for k, v := range request.QueryStringParameters {
 			q.Add(k, v)
