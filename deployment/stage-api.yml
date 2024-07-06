@@ -12,7 +12,6 @@ phases:
     commands:
       - aws s3 sync s3://config.scheduler.page/stage .
       - cp envstage .env
-      - cat .env
       #     - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 955552760689.dkr.ecr.us-east-1.amazonaws.com
       #      - npm install babel-plugin-transform-runtime --save
       #      - npm install babel-preset-env --save
@@ -67,7 +66,7 @@ phases:
 
 #      - api-stage.scheduler.page
 
-      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest --config-file samconfig.toml
+      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest --config-file samconfig.toml --ignore-existing
 
   #    - echo "In the building process"
   #    - echo $DB_INFO
