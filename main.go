@@ -82,13 +82,19 @@ func main() {
 	} else {
 		e.Logger.Fatal(e.Start(":3600"))
 	}
+	//e.Start()
 	//e.Logger.Fatal(e.Start(":3500"))
 	//lambda.Start(Handler)
 }
 
 func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+
 	return func(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 		body := strings.NewReader(request.Body)
+		fmt.Println("body")
+
+		fmt.Println(body)
+
 		req := httptest.NewRequest(request.HTTPMethod, request.Path, body)
 		for k, v := range request.Headers {
 			req.Header.Add(k, v)
