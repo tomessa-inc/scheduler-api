@@ -27,5 +27,4 @@ ENV LAMBDA="TRUE"
 COPY --from=build /scheduler/scheduler-api ./scheduler-api
 COPY --from=build /scheduler/.env ./.env
 
-
 ENTRYPOINT [ "./scheduler-api" ]
