@@ -16,6 +16,7 @@ s3_prefix = "api"
 region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = false
+Tag="test"
 
 
 [default.sync.parameters]
