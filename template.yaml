@@ -8,6 +8,11 @@ Parameters:
     Type: String
     Description: Bucket for Images
     Default: stage
+  Tag:
+    Type: String
+    Description: Tag for repo
+    Default: $CODEBUILD_RESOLVED_SOURCE_VERSION
+
 
 Resources:
   ApiGateway:
@@ -23,7 +28,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: arn:aws:iam::211125399219:role/lambda-role
-      ImageUri: 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      ImageUri: 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:!Ref Tag
       PackageType: Image
       CodeUri: .
   #    Runtime: provided.al2023
