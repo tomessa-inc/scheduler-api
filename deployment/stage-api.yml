@@ -66,7 +66,7 @@ phases:
 
 #      - api-stage.scheduler.page
 
-      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION --config-file samconfig.toml --force-upload
+      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION --config-file samconfig.toml --force-upload --parameter-overrides Tag=$CODEBUILD_RESOLVED_SOURCE_VERSION
 
   #    - echo "In the building process"
   #    - echo $DB_INFO
