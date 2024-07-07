@@ -25,9 +25,7 @@ RUN go build scheduler-api
 FROM public.ecr.aws/lambda/provided:al2023
 ENV LAMBDA="TRUE"
 COPY --from=build /scheduler/scheduler-api ./scheduler-api
-COPY --from=build /scheduler/scheduler-api ./scheduler
 COPY --from=build /scheduler/.env ./.env
-COPY --from=build /scheduler/.env ./.envtest
 
 
 ENTRYPOINT [ "./scheduler-api" ]
