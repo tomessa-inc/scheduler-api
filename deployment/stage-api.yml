@@ -43,7 +43,7 @@ phases:
     #  - docker-compose build
     #  - docker-compose up -d
    #   - docker ps -a
-      - export $IMAGE_TAG=${git rev-parse 0.0.xx^{}}
+      - export $IMAGE_TAG=$(git rev-parse 0.0.xx^{})
       - echo $IMAGE_TAG
       - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:test . --push
    #   - docker tag scheduler-api golang:latest
