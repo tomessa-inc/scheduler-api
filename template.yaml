@@ -28,7 +28,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: arn:aws:iam::211125399219:role/lambda-role
-      ImageUri: !Sub '211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:${Tag}`
+      ImageUri: !Sub '211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:${Tag}'
       PackageType: Image
       CodeUri: .
   #    Runtime: provided.al2023
