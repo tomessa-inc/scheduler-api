@@ -62,11 +62,11 @@ phases:
     #  - go build scheduler-api
 
 
-      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:test
 
 #      - api-stage.scheduler.page
 
-      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest --config-file samconfig.toml  --force-upload
+      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:test --config-file samconfig.toml  --force-upload
 
   #    - echo "In the building process"
   #    - echo $DB_INFO
