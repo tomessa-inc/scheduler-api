@@ -43,11 +43,7 @@ phases:
     #  - docker-compose build
     #  - docker-compose up -d
    #   - docker ps -a
-      - echo "version"
-      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
-      - IMAGE_TAG=$(git rev-parse HEAD)
-      - echo $IMAGE_TAG
-      - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:test . --push
+      - docker build -t 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION . --push
    #   - docker tag scheduler-api golang:latest
    #   - docker golang:latest 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
 #      - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
@@ -66,11 +62,11 @@ phases:
     #  - go build scheduler-api
 
 
-      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:test
+      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION
 
 #      - api-stage.scheduler.page
 
-      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:test --config-file samconfig.toml  --force-upload
+      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION --config-file samconfig.toml
 
   #    - echo "In the building process"
   #    - echo $DB_INFO
