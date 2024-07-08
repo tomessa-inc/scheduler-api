@@ -104,21 +104,21 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 
 		fmt.Println(req)
 		fmt.Println("req2")
-		goo := "aaaa"
-		fmt.Println(goo)
+		fmt.Println("aaaa")
 		q := req.URL.Query()
 		for k, v := range request.QueryStringParameters {
 			q.Add(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
 
+		fmt.Println("bbbb")
 		rec := httptest.NewRecorder()
 		e.ServeHTTP(rec, req)
-		goo2 := "bbbb"
-		fmt.Println(goo2)
+
+		fmt.Println("cccc")
 		res := rec.Result()
-		goo3 := "cccc"
-		fmt.Println(goo3)
+		goo4 := "dddd"
+		fmt.Println(goo4)
 
 		responseBody, err := io.ReadAll(res.Body)
 		fmt.Println("responseBody")
