@@ -90,6 +90,9 @@ func main() {
 func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
 	return func(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+
+		fmt.Println("original body")
+		fmt.Println(request.Body)
 		body := strings.NewReader(request.Body)
 		fmt.Println("body")
 
