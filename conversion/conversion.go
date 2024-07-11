@@ -38,20 +38,6 @@ func ConvertGibsonBytesToInt(stringData gjson.Result) (int, error) {
 	return intData, err
 }
 
-func GetIntDataFromJSONByKey(jsonInterface map[string]interface{}, key string) (int, error) {
-	//	fmt.Printf("json stirng data interface: %s\n", jsonInterface)
-	//	fmt.Printf("json stirng key: %s\n", key)
-
-	jsonBytes := ApplyMarshal(jsonInterface)
-	//	fmt.Printf("json stirng data marsh: %s\n", jsonBytes)
-
-	valueBytes := gjson.GetBytes(jsonBytes, key)
-	//	fmt.Printf("number starting month: %s\n", valueBytes)
-	valueInt, err := ConvertGibsonBytesToInt(valueBytes)
-	//	fmt.Printf("json stirng data marsh int: %d\n", valueInt)
-	return valueInt, err
-}
-
 func ConvertJSONToString(jsonInterface interface{}) (string, error) {
 	jsonBytes, err := json.Marshal(jsonInterface)
 	stringData := string([]byte(jsonBytes))
