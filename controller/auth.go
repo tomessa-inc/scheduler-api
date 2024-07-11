@@ -21,6 +21,8 @@ func SignIn(c echo.Context) error {
 
 	fmt.Println("the c")
 	fmt.Println(c)
+	fmt.Println("the body")
+	fmt.Println(c.Request().Body)
 
 	fmt.Println("user")
 
