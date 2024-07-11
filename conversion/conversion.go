@@ -27,6 +27,7 @@ func ConvertArrayBytesToString(bytesData []byte) (map[string]string, error) {
 	//	fmt.Printf("json stirng data marsh int: %d\n", intData)
 	return makeString, err
 }
+
 func ConvertGibsonBytesToInt(stringData gjson.Result) (int, error) {
 	//	fmt.Printf("json stirng data marsh string hwerw: %s\n", stringData)
 	//	fmt.Printf("json stirng data marsh string raw: %s\n", stringData.Raw)
@@ -35,6 +36,43 @@ func ConvertGibsonBytesToInt(stringData gjson.Result) (int, error) {
 	//intNumberMonth, err := strconv.Atoi(startMonth)
 	//	fmt.Printf("json stirng data marsh int: %d\n", intData)
 	return intData, err
+}
+
+func GetIntDataFromJSONByKey(jsonInterface map[string]interface{}, key string) (int, error) {
+	//	fmt.Printf("json stirng data interface: %s\n", jsonInterface)
+	//	fmt.Printf("json stirng key: %s\n", key)
+
+	jsonBytes := ApplyMarshal(jsonInterface)
+	//	fmt.Printf("json stirng data marsh: %s\n", jsonBytes)
+
+	valueBytes := gjson.GetBytes(jsonBytes, key)
+	//	fmt.Printf("number starting month: %s\n", valueBytes)
+	valueInt, err := ConvertGibsonBytesToInt(valueBytes)
+	//	fmt.Printf("json stirng data marsh int: %d\n", valueInt)
+	return valueInt, err
+}
+
+func ConvertJSONToString(jsonInterface interface{}) (string, error) {
+	jsonBytes, err := json.Marshal(jsonInterface)
+	stringData := string([]byte(jsonBytes))
+	//valueInt := ConvertGibsonBytesToString(jsonBytes)
+	//	fmt.Printf("json stirng data marsh int: %d\n", valueInt)
+	return stringData, err
+	/*
+		if err := json.Unmarshal([]byte(str), &i); err != nil {
+			fmt.Println("ugh: ", err)
+		}
+
+		fmt.Println("info: ", i)
+		fmt.Println("currency: ", i.Data.Currency)
+
+		//	fmt.Printf("json stirng data marsh string hwerw: %s\n", stringData)
+		//	fmt.Printf("json stirng data marsh string raw: %s\n", stringData.Raw)
+		intData, err := strconv.Atoi(string([]byte(stringData.Raw)))
+		//	intData, err := strconv.Atoi(stringData)
+		//intNumberMonth, err := strconv.Atoi(startMonth)
+		//	fmt.Printf("json stirng data marsh int: %d\n", intData)
+		return intData, err */
 }
 
 func ConvertGibsonBytesToString(bytesData gjson.Result) string {

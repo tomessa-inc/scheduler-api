@@ -13,6 +13,7 @@ import (
 	"net/http/httptest"
 	"os"
 	c "scheduler-api/config"
+	"scheduler-api/conversion"
 	"scheduler-api/db"
 	r "scheduler-api/routes"
 	"strings"
@@ -93,7 +94,11 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 
 		fmt.Println("original body")
 		fmt.Println(request.Body)
-		body := strings.NewReader(request.Body)
+		stringBody, err := conversion.ConvertJSONToString(request.Body)
+		fmt.Println("string body")
+		fmt.Println(stringBody)
+		//body := strings.NewReader(request.Body)
+		body := strings.NewReader(stringBody)
 		fmt.Println("body")
 
 		fmt.Println(body)
