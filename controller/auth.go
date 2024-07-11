@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"reflect"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
 
@@ -23,6 +24,9 @@ func SignIn(c echo.Context) error {
 	fmt.Println(c)
 	fmt.Println("the body")
 	fmt.Println(c.Request().Body)
+
+	fmt.Println("the type")
+	fmt.Println(reflect.TypeOf(c.Request().Body))
 
 	fmt.Println("user")
 
