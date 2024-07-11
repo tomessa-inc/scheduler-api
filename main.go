@@ -99,6 +99,8 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		fmt.Println(stringBody)
 		//body := strings.NewReader(request.Body)
 		body := strings.NewReader(stringBody)
+
+		//	body := httptest.NewRequest(stringBody)
 		fmt.Println("body")
 
 		fmt.Println(body)
