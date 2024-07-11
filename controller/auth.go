@@ -2,10 +2,12 @@ package controller
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"reflect"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
+	"strings"
 
 	"time"
 
@@ -28,9 +30,17 @@ func SignIn(c echo.Context) error {
 	fmt.Println("the type")
 	fmt.Println(reflect.TypeOf(c.Request().Body))
 
+	buf := new(strings.Builder)
+	n, err := io.Copy(buf, c.Request().Body)
+	// check errors
+
+	fmt.Println(n)
+	fmt.Println("check")
+	fmt.Println(buf.String())
+
 	fmt.Println("user")
 
-	err := c.Bind(&user)
+	err = c.Bind(&user)
 	fmt.Println(user)
 	///if err != nil {
 	//		return c.JSON(http.StatusUnprocessableEntity, err.Error())
