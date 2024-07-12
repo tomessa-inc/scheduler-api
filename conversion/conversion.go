@@ -63,7 +63,7 @@ func ConvertJSONToString(jsonInterface interface{}) (string, error) {
 
 func ConvertStringToJSON(inputString string) string {
 
-	jsonInterface := map[string]interface{}{"user": "", "token": ""}
+	jsonInterface := map[string]interface{}{"email": "", "password": ""}
 
 	//	makeString := make(map[string]string)
 	jsonObject := json.Unmarshal([]byte(inputString), &jsonInterface)
