@@ -62,19 +62,24 @@ func ConvertJSONToString(jsonInterface interface{}) (string, error) {
 }
 
 type Test struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string
+	Password string
 }
 
 func ConvertStringToJSON(inputString string) string {
 	var iot Test
 	//	jsonInterface := map[string]interface{}{"email": "", "password": ""}
 
+	Data := []byte(inputString)
+
 	//	makeString := make(map[string]string)
-	jsonObject := json.Unmarshal([]byte(inputString), &iot)
+	jsonObject := json.Unmarshal(Data, &iot)
 
 	fmt.Println("inputString")
 	fmt.Println(inputString)
+	fmt.Println("Data")
+	fmt.Println(Data)
+
 	fmt.Println("jsonObject")
 	fmt.Println(jsonObject)
 
