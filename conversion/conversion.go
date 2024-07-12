@@ -64,8 +64,11 @@ func ConvertJSONToString(jsonInterface interface{}) (string, error) {
 func ConvertStringToJSON(inputString string) string {
 	makeString := make(map[string]string)
 	jsonObject := json.Unmarshal([]byte(inputString), &makeString)
-	fmt.Println(jsonObject)
 
+	fmt.Println("makeString")
+	fmt.Println(makeString)
+	fmt.Println("jsonObject")
+	fmt.Println(jsonObject)
 	//	jsonBytes, err := json.Marshal(jsonInterface)
 	//	stringData := string([]byte(jsonBytes))
 	//valueInt := ConvertGibsonBytesToString(jsonBytes)
