@@ -69,11 +69,11 @@ type Test struct {
 func ConvertStringToJSON(inputString string) string {
 	//	var iot Test
 	//	jsonInterface := map[string]interface{}{"email": "", "password": ""}
-
+	var jsonInterface interface{}
 	Data := []byte(inputString)
-	var bufferSingleMap map[string]interface{}
+	//var bufferSingleMap map[string]interface{}
 	//	makeString := make(map[string]string)
-	jsonObject := json.Unmarshal(Data, &bufferSingleMap)
+	jsonObject := json.Unmarshal(Data, &jsonInterface)
 
 	fmt.Println("inputString")
 	fmt.Println(inputString)
@@ -84,7 +84,7 @@ func ConvertStringToJSON(inputString string) string {
 	fmt.Println(jsonObject)
 
 	fmt.Println("iot")
-	fmt.Println(bufferSingleMap)
+	fmt.Println(jsonInterface)
 
 	//	jsonBytes, err := json.Marshal(jsonInterface)
 	//	stringData := string([]byte(jsonBytes))
