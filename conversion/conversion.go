@@ -66,25 +66,17 @@ type Test struct {
 	Password string `json:"password"`
 }
 
-func ConvertStringToJSON(inputString string) string {
-	//	var iot Test
-	jsonInterface := map[string]interface{}{"email": "", "password": ""}
+func ConvertStringToJSON(inputString string) (string, error) {
+	var iot Test
+	//jsonInterface := map[string]interface{}{"email": "", "password": ""}
 	//var jsonInterface interface{}
 	Data := []byte(inputString)
 	//var bufferSingleMap map[string]interface{}
 	//	makeString := make(map[string]string)
-	jsonObject := json.Unmarshal(Data, &jsonInterface)
-
-	fmt.Println("inputString")
-	fmt.Println(inputString)
-	fmt.Println("Data")
-	fmt.Println(Data)
-
-	fmt.Println("jsonObject")
-	fmt.Println(jsonObject)
+	err := json.Unmarshal(Data, &iot)
 
 	fmt.Println("iot")
-	fmt.Println(jsonInterface)
+	fmt.Println(iot.Password)
 
 	//	fmt.Println("email")
 	//fmt.Println(jsonInterface["email"])
@@ -93,7 +85,7 @@ func ConvertStringToJSON(inputString string) string {
 	//	stringData := string([]byte(jsonBytes))
 	//valueInt := ConvertGibsonBytesToString(jsonBytes)
 	//	fmt.Printf("json stirng data marsh int: %d\n", valueInt)
-	return "test"
+	return "test", err
 	/*
 		if err := json.Unmarshal([]byte(str), &i); err != nil {
 			fmt.Println("ugh: ", err)
