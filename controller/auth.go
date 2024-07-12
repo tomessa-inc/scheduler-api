@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"reflect"
+	"scheduler-api/conversion"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
 	"strings"
@@ -37,6 +38,9 @@ func SignIn(c echo.Context) error {
 	fmt.Println(n)
 	fmt.Println("check")
 	fmt.Println(buf.String())
+
+	fmt.Println("checking json")
+	fmt.Println(conversion.ConvertStringToJSON(buf.String()))
 
 	fmt.Println("user")
 
