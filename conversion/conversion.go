@@ -61,13 +61,13 @@ func ConvertJSONToString(jsonInterface interface{}) (string, error) {
 		return intData, err */
 }
 
-type Test struct {
+type AuthCheck struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
 func ConvertStringToJSON(inputString string) (string, error) {
-	var iot Test
+	var iot AuthCheck
 	//jsonInterface := map[string]interface{}{"email": "", "password": ""}
 	//var jsonInterface interface{}
 	Data := []byte(inputString)
