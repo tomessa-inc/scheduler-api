@@ -62,8 +62,8 @@ func ConvertJSONToString(jsonInterface interface{}) (string, error) {
 }
 
 type AuthCheck struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string
+	Password string
 }
 
 func ConvertStringToJSON(inputString string) (string, error) {
