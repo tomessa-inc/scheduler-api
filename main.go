@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	echoadapter "github.com/awslabs/aws-lambda-go-api-proxy/echo"
@@ -110,8 +109,7 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		res := rec.Result()
 
 		responseBody, err := io.ReadAll(res.Body)
-		fmt.Println("responseBody")
-		fmt.Println(responseBody)
+
 		if err != nil {
 			return formatAPIErrorResponse(http.StatusInternalServerError, res.Header, err.Error())
 		}
