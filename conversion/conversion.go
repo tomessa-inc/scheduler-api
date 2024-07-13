@@ -61,49 +61,6 @@ func ConvertJSONToString(jsonInterface interface{}) (string, error) {
 		return intData, err */
 }
 
-/*
-type AuthCheck struct {
-	Email    string `key:"email"`
-	Password string `json:"password"`
-} */
-
-func ConvertStringToJSON(inputString string) (string, error) {
-	var iot e.AuthCheck
-	//jsonInterface := map[string]interface{}{"email": "", "password": ""}
-	//var jsonInterface interface{}
-	Data := []byte(inputString)
-	//var bufferSingleMap map[string]interface{}
-	//	makeString := make(map[string]string)
-	err := json.Unmarshal(Data, &iot)
-
-	fmt.Println("iotpasss")
-	fmt.Println(iot.Password)
-
-	//	fmt.Println("email")
-	//fmt.Println(jsonInterface["email"])
-
-	//	jsonBytes, err := json.Marshal(jsonInterface)
-	//	stringData := string([]byte(jsonBytes))
-	//valueInt := ConvertGibsonBytesToString(jsonBytes)
-	//	fmt.Printf("json stirng data marsh int: %d\n", valueInt)
-	return "test", err
-	/*
-		if err := json.Unmarshal([]byte(str), &i); err != nil {
-			fmt.Println("ugh: ", err)
-		}
-
-		fmt.Println("info: ", i)
-		fmt.Println("currency: ", i.Data.Currency)
-
-		//	fmt.Printf("json stirng data marsh string hwerw: %s\n", stringData)
-		//	fmt.Printf("json stirng data marsh string raw: %s\n", stringData.Raw)
-		intData, err := strconv.Atoi(string([]byte(stringData.Raw)))
-		//	intData, err := strconv.Atoi(stringData)
-		//intNumberMonth, err := strconv.Atoi(startMonth)
-		//	fmt.Printf("json stirng data marsh int: %d\n", intData)
-		return intData, err */
-}
-
 func ConvertGibsonBytesToString(bytesData gjson.Result) string {
 	//	fmt.Printf("json stirng data marsh string hwerw: %s\n", stringData)
 	//	fmt.Printf("json stirng data marsh string raw: %s\n", stringData.Raw)

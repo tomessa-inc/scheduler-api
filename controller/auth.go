@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"reflect"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
 	"strings"
@@ -23,34 +22,14 @@ var (
 func SignIn(c echo.Context) error {
 	var user e.User
 
-	fmt.Println("the type")
-	fmt.Println(reflect.TypeOf(c.Request().Body))
-
 	buf := new(strings.Builder)
 	n, err := io.Copy(buf, c.Request().Body)
-	//n := io.ReadCloser(buf, c.Request().Body)
-	// check errors
-
 	fmt.Println(n)
-	fmt.Println("check")
-	fmt.Println(buf.String())
 
-	fmt.Println("checking json")
-
-	Data := []byte(buf.String())
-	//var bufferSingleMap map[string]interface{}
-	//	makeString := make(map[string]string)
-	err = json.Unmarshal(Data, &user)
-
-	//fmt.Println("iotpasss")
-	//	fmt.Println(entity.Password)
-
-	//	data, err := conversion.ConvertStringToJSON(buf.String(), authCheck)
-
-	fmt.Println("user")
+	json.Unmarshal([]byte(buf.String()), &user)
 
 	err = c.Bind(&user)
-	fmt.Println(user)
+
 	///if err != nil {
 	//		return c.JSON(http.StatusUnprocessableEntity, err.Error())
 	//	}
