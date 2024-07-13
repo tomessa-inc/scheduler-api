@@ -75,6 +75,9 @@ func ConvertStringToJSON(inputString string) (string, error) {
 	//	makeString := make(map[string]string)
 	err := json.Unmarshal(Data, &iot)
 
+	fmt.Println("err")
+	fmt.Println(err)
+
 	fmt.Println("iot")
 	fmt.Println(iot.Password)
 
