@@ -23,8 +23,6 @@ var (
 func SignIn(c echo.Context) error {
 	var user e.User
 
-	fmt.Println("the c")
-	fmt.Println(c)
 	fmt.Println("the body")
 	fmt.Println(c.Request().Body)
 
@@ -33,6 +31,7 @@ func SignIn(c echo.Context) error {
 
 	buf := new(strings.Builder)
 	n, err := io.Copy(buf, c.Request().Body)
+	//n := io.ReadCloser(buf, c.Request().Body)
 	// check errors
 
 	fmt.Println(n)

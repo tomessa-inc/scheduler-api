@@ -13,7 +13,6 @@ import (
 	"net/http/httptest"
 	"os"
 	c "scheduler-api/config"
-	"scheduler-api/conversion"
 	"scheduler-api/db"
 	r "scheduler-api/routes"
 	"strings"
@@ -92,49 +91,21 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 
 	return func(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
-		fmt.Println("original body")
-		fmt.Println(request.Body)
-		stringBody, err := conversion.ConvertJSONToString(request.Body)
-		fmt.Println("string body")
-		fmt.Println(stringBody)
-		//body := strings.NewReader(request.Body)
 		body := strings.NewReader(request.Body)
-
-		//	body := httptest.NewRequest(stringBody)
-		fmt.Println("body")
-
-		fmt.Println(body)
 
 		req := httptest.NewRequest(request.HTTPMethod, request.Path, body)
 		for k, v := range request.Headers {
 			req.Header.Add(k, v)
 		}
 
-		fmt.Println("req")
-
-		fmt.Println(req)
-		fmt.Println("req2")
-		fmt.Println(req.Body)
-		fmt.Println("aaaa")
 		q := req.URL.Query()
 		for k, v := range request.QueryStringParameters {
 			q.Add(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
 
-		fmt.Println("bbbb")
 		rec := httptest.NewRecorder()
-		fmt.Println("bcbcbc")
-		fmt.Println("rec")
-		fmt.Println(rec)
-		fmt.Println("req")
-		fmt.Println(req)
-		e.ServeHTTP(rec, req)
-
-		fmt.Println("cccc")
 		res := rec.Result()
-		goo4 := "dddd"
-		fmt.Println(goo4)
 
 		responseBody, err := io.ReadAll(res.Body)
 		fmt.Println("responseBody")
