@@ -10,6 +10,11 @@ type User struct {
 	Password    string  `db:"password"`
 }
 
+type AuthCheck struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
 type UserAuth struct {
 	ID          string `db:"id"`
 	Name        string `db:"name"`
