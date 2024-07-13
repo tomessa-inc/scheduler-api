@@ -61,12 +61,11 @@ func ConvertJSONToString(jsonInterface interface{}) (string, error) {
 		return intData, err */
 }
 
-/*
-	type AuthCheck struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-	}
-*/
+type AuthCheck struct {
+	Email    string `key:"email"`
+	Password string `json:"password"`
+}
+
 func ConvertStringToJSON(inputString string) (string, error) {
 	var iot e.AuthCheck
 	//jsonInterface := map[string]interface{}{"email": "", "password": ""}
@@ -80,6 +79,9 @@ func ConvertStringToJSON(inputString string) (string, error) {
 	fmt.Println(err)
 
 	fmt.Println("iot")
+	fmt.Println(iot)
+
+	fmt.Println("iotpasss")
 	fmt.Println(iot.Password)
 
 	//	fmt.Println("email")
