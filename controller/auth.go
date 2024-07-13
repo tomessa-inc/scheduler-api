@@ -1,11 +1,11 @@
 package controller
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"reflect"
-	"scheduler-api/conversion"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
 	"strings"
@@ -23,9 +23,6 @@ var (
 func SignIn(c echo.Context) error {
 	var user e.User
 
-	fmt.Println("the body")
-	fmt.Println(c.Request().Body)
-
 	fmt.Println("the type")
 	fmt.Println(reflect.TypeOf(c.Request().Body))
 
@@ -39,7 +36,16 @@ func SignIn(c echo.Context) error {
 	fmt.Println(buf.String())
 
 	fmt.Println("checking json")
-	fmt.Println(conversion.ConvertStringToJSON(buf.String()))
+
+	Data := []byte(buf.String())
+	//var bufferSingleMap map[string]interface{}
+	//	makeString := make(map[string]string)
+	err = json.Unmarshal(Data, &user)
+
+	//fmt.Println("iotpasss")
+	//	fmt.Println(entity.Password)
+
+	//	data, err := conversion.ConvertStringToJSON(buf.String(), authCheck)
 
 	fmt.Println("user")
 
