@@ -20,9 +20,9 @@ Resources:
   SchedulerApi:
     Type: AWS::Serverless::Function
     Properties:
-      PackageType: Zip
-      Runtime: provided.al2
-      Handler: lambda.handler
+      ImageUri: 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:latest
+      PackageType: Image
+      CodeUri: .
       Timeout: 10
       Events:
         AuthSignIn:
@@ -39,10 +39,8 @@ Resources:
               Ref: ApiGateway
             Path: /auth/sign-out
             Method: post
-      CodeUri: SchedulerApi
     Metadata:
       BuildMethod: makefile
-      SamResourceId: SchedulerApi
 Outputs:
   Endpoint:
     Value:

@@ -79,7 +79,7 @@ func main() {
 
 		lambda.Start(server)
 	} else {
-		e.Logger.Fatal(e.Start(":3600"))
+		e.Logger.Fatal(e.Start(":3500"))
 	}
 	//e.Start()
 	//e.Logger.Fatal(e.Start(":3500"))
