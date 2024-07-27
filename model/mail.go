@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	awslocal "scheduler-api/aws"
-	"scheduler-api/conversion"
 	e "scheduler-api/entity"
+	"scheduler-api/tools"
 )
 
 const (
@@ -90,7 +90,7 @@ func PrepareEmail(users e.ScheduleUser, emailType string, token ...string) {
 		break
 	}
 
-	templateData, err := conversion.ConvertArrayBytesToString(htmlData)
+	templateData, err := tools.ConvertArrayBytesToString(htmlData)
 
 	// Send templated email from AWS.
 	err = ses.SendTemplatedEmail(ctx, awslocal.SESSendTemplatedEmailArgs{

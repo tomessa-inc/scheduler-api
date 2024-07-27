@@ -144,3 +144,36 @@ func GetUsherGroupById(id string) (e.UsherGroup, error) {
 
 	return usherGroup, err
 }
+
+func GetUsherGroupByUserId(id string) (e.UsherGroup, error) {
+	fmt.Println(id)
+	usherGroup := e.UsherGroup{}
+	usherGroupSQL, args, err := sg.Select("usher_group.id, usher_group.name, usher_group.description, usher_group.day, usher_group.day, usher_group.hour, usher_group.minute, usher_group.usher_amount").
+		InnerJoin("user_usher_group ON usher_group.id = user_usher_group.usher_group").
+		From("usher_group").
+		Where(sg.Eq{"user_usher_group.user": id}).ToSql()
+
+	fmt.Println(usherGroupSQL)
+	fmt.Println(args)
+
+	rows, err := db.DB.Queryx(usherGroupSQL, id)
+
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(rows)
+
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.StructScan(&usherGroup)
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+	}
+
+	err = rows.Err()
+
+	return usherGroup, err
+}

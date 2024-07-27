@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"scheduler-api/conversion"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
+	"scheduler-api/tools"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
@@ -34,7 +34,7 @@ func GetSchedule(c echo.Context) error {
 	list, err := m.GetSchedule(&schedule, pageIndex, pageSize, field, order)
 
 	usherGroupBytes, err := json.Marshal(list)
-	usherGroupJson := conversion.ConvertByteToJSON(usherGroupBytes)
+	usherGroupJson := tools.ConvertByteToJSON(usherGroupBytes)
 
 	return c.JSON(http.StatusOK, usherGroupJson)
 

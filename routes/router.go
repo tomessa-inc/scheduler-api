@@ -13,6 +13,7 @@ func InitRoutes(e *echo.Echo) {
 	SetWeekRoutes(e)
 	SetAuthRoutes(e)
 	SetScheduleRoutes(e)
+	SetAbsenceRoutes(e)
 }
 
 func paramValidation(next echo.HandlerFunc) echo.HandlerFunc {

@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"scheduler-api/conversion"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
+	"scheduler-api/tools"
 	"strconv"
 	"strings"
 
@@ -54,7 +54,7 @@ func UpdateUser(c echo.Context) error {
 	json.Unmarshal([]byte(usherGroup), &userLV)
 
 	//	out, err := json.Marshal(userLV)
-	diff := conversion.DifferenceLV(userLV, userUsherGroup)
+	diff := tools.DifferenceLV(userLV, userUsherGroup)
 
 	for i := 0; i < len(diff); i++ {
 		err2 := m.DeleteUserUsherGroupByUser(user.ID, diff[i])
@@ -94,11 +94,13 @@ func getMyString(items []e.LV) (string, error) {
 }
 
 func GetUsers(c echo.Context) error {
+
+	fmt.Println("helldddo")
 	pageIndex, err := strconv.ParseUint(c.Param("page-index"), 10, 64)
 	pageSize, err := strconv.ParseUint(c.Param("page-size"), 10, 64)
 	field := c.Param("field")
 	order := c.Param("order")
-
+	fmt.Println("hello")
 	users, err := m.GetUsers(pageIndex, pageSize, field, order)
 
 	if err != nil {
@@ -106,12 +108,14 @@ func GetUsers(c echo.Context) error {
 	}
 
 	usersBytes, err := json.Marshal(users)
-	uersJson := conversion.ConvertByteToJSON(usersBytes)
+	uersJson := tools.ConvertByteToJSON(usersBytes)
 
 	return c.JSON(http.StatusOK, uersJson)
 }
 
 func GetUsersByPrefix(c echo.Context) error {
+	fmt.Println("heldddddd332222222ldddo")
+
 	pageIndex, err := strconv.ParseUint(c.Param("page-index"), 10, 64)
 	pageSize, err := strconv.ParseUint(c.Param("page-size"), 10, 64)
 	field := c.Param("field")
@@ -125,7 +129,7 @@ func GetUsersByPrefix(c echo.Context) error {
 	}
 
 	usersBytes, err := json.Marshal(users)
-	uersJson := conversion.ConvertByteToJSON(usersBytes)
+	uersJson := tools.ConvertByteToJSON(usersBytes)
 
 	return c.JSON(http.StatusOK, uersJson)
 }

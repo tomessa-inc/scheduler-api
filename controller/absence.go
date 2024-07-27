@@ -1,45 +1,100 @@
 package controller
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/labstack/echo/v4"
 	"net/http"
-	"scheduler-api/conversion"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
-	"strconv"
-
-	"github.com/labstack/echo/v4"
+	"scheduler-api/tools"
 )
 
 func SetAbsence(c echo.Context) error {
-	pageIndex, err := strconv.ParseUint(c.Param("page-index"), 10, 64)
-	pageSize, err := strconv.ParseUint(c.Param("page-size"), 10, 64)
-	field := c.Param("field")
-	order := c.Param("order")
+	var rangeConfig e.RangeConfig
+	var err error
+	var absense e.Absence
+	var userUserGroup []e.UserUsherGroup
+	//	pageIndex, err := strconv.ParseUint(c.Param("page-index"), 10, 64)
+	//	pageSize, err := strconv.ParseUint(c.Param("page-size"), 10, 64)
+	//field := c.Param("field")
+	fmt.Println("arrivbe11")
+	//	order := c.Param("order")
+	err = c.Bind(&absense)
+	fmt.Println(absense.ID)
+	userUserGroup, err = m.GetUserUsherGroupByUser(absense.ID)
+	fmt.Println(userUserGroup)
+	jsonInterface := tools.GetJSONRawBody(c)
+	fmt.Println("arrivbe22")
+	rangeConfig, err = tools.RangeConfiguration(jsonInterface)
+
+	if err == nil {
+		return nil
+	}
+	fmt.Println("arrivbed")
+	for y := rangeConfig.StartYear; y <= rangeConfig.EndYear; y++ {
+		fmt.Println("arrivbed1")
+		for i := rangeConfig.StartMonth; i <= rangeConfig.EndMonth; i++ {
+			fmt.Println("arrivbed2")
+			dayToCheck := tools.DaysConfig(rangeConfig, y, i)
+
+			for dayCheck := dayToCheck.DaysToCheck; dayCheck <= dayToCheck.Days; dayCheck++ {
+				fmt.Println("arrivbed3")
+				fmt.Println(len(userUserGroup))
+				for usherGroupCount := 0; usherGroupCount < len(userUserGroup); usherGroupCount++ {
+					fmt.Println("arrivbed")
+					dayofWeekMass := tools.DaysOfWeek(i, dayCheck, y)
+					fmt.Println(dayofWeekMass)
+					fmt.Println(userUserGroup)
+					fmt.Println(userUserGroup[usherGroupCount])
+					//				if userUserGroup.Day == strings.ToLower(dayofWeekMass.String()) {
+					//					fmt.Printf("\n\n\nstart day\n\n\n")
+					/*					absense.ID = ""
+										absense.
+										//					absense
+										//					absense.Range					week.Day = d
+										week.Hour = usherGroupData.Hour
+										week.Minute = usherGroupData.Minute
+										week.Month = i
+										week.Year = y
+										week.UsherGroup = usherGroupData.ID
+										weekId, err := m.AddWeek(&week) */
+				}
+			}
+
+		}
+	}
+
+	//	tools.buildRange(c, "UsherGroup")
+
+	//tools.buildRange(c, "UsherGroup")
+
 	var absence e.Absence
 	err2 := c.Bind(&absence)
 
-	if err != nil {
+	//	if err != nil {//
 
-	}
+	//	}
 	if err2 != nil {
 
 	}
+
+	m.SetUnAvaiable(absence)
+
 	//usherGroups, err := m.GetUsherGroups(pageIndex, pageSize, field, order)
 
-	fmt.Println("dodo")
-	fmt.Println(schedule.RequestId)
+	//	fmt.Println("dodo")
+	//	fmt.Println(schedule.RequestId)
 
-	list, err := m.GetSchedule(&schedule, pageIndex, pageSize, field, order)
+	//list, err := m.GetSchedule(&schedule, pageIndex, pageSize, field, order)
 
-	usherGroupBytes, err := json.Marshal(list)
-	usherGroupJson := conversion.ConvertByteToJSON(usherGroupBytes)
+	//usherGroupBytes, err := json.Marshal(list)
+	//	usherGroupJson := tools.ConvertByteToJSON(usherGroupBytes)
 
-	return c.JSON(http.StatusOK, usherGroupJson)
+	return c.JSON(http.StatusOK, "")
 
 }
 
+/*
 func SetUnAvailable(c echo.Context) error {
 	var schedule e.SetUnAvailable
 	err := c.Bind(&schedule)
@@ -165,3 +220,4 @@ func SetAvailable(c echo.Context) error {
 	//	return c.JSON(http.StatusOK, usherGroupJson)
 
 }
+*/

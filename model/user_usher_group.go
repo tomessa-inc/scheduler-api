@@ -113,7 +113,7 @@ func GetUserUsherGroupByUser(user string) ([]e.UserUsherGroup, error) {
 	userUsherGroupSQL, args, err := sg.Select("user_usher_group.id, user_usher_group.user, user_usher_group.usher_group").
 		From("user_usher_group").
 		Where(sg.Eq{"user_usher_group.user": user}).ToSql()
-
+	fmt.Println("the query")
 	fmt.Println(userUsherGroupSQL)
 	fmt.Println(args)
 

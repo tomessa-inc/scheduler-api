@@ -6,24 +6,14 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
-	"scheduler-api/conversion"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
+	"scheduler-api/tools"
 	"strings"
 	"time"
 
 	"github.com/labstack/echo/v4"
 )
-
-func daysInMonth(m int, year int) int {
-
-	return time.Date(year, time.Month(m)+1, 0, 0, 0, 0, 0, time.UTC).Day()
-}
-
-func daysOfWeek(m int, d int, year int) time.Weekday {
-
-	return time.Date(year, time.Month(m)+1, d, 0, 0, 0, 0, time.UTC).Weekday()
-}
 
 func AddWeek(c echo.Context) error {
 	var week e.Week
@@ -35,9 +25,10 @@ func AddWeek(c echo.Context) error {
 	var userUsherGroup e.UserUsherGroup
 	var peopleAmount int
 
-	jsonInterface := conversion.GetJSONRawBody(c)
+	//tools.buildRange(c, "UsherGroup")
+	jsonInterface := tools.GetJSONRawBody(c)
 
-	usherGroups := conversion.GetStringArrayDataFromJSONByKey(jsonInterface, "UsherGroup")
+	usherGroups := tools.GetStringArrayDataFromJSONByKey(jsonInterface, "UsherGroup")
 
 	for i := 0; i < len(usherGroups); i++ {
 		usherGroup := usherGroups[i]
@@ -47,15 +38,16 @@ func AddWeek(c echo.Context) error {
 		if err != nil {
 
 		}
-		startYear, err := conversion.GetIntDataFromJSONByKey(jsonInterface, "Range.start.year")
-		startMonth, err := conversion.GetIntDataFromJSONByKey(jsonInterface, "Range.start.month")
-		startDay, err := conversion.GetIntDataFromJSONByKey(jsonInterface, "Range.start.day")
-		endDay, err := conversion.GetIntDataFromJSONByKey(jsonInterface, "Range.end.day")
-		endYear, err := conversion.GetIntDataFromJSONByKey(jsonInterface, "Range.end.year")
-		endMonth, err := conversion.GetIntDataFromJSONByKey(jsonInterface, "Range.end.month")
+		startYear, err := tools.GetIntDataFromJSONByKey(jsonInterface, "Range.start.year")
+		startMonth, err := tools.GetIntDataFromJSONByKey(jsonInterface, "Range.start.month")
+		startDay, err := tools.GetIntDataFromJSONByKey(jsonInterface, "Range.start.day")
+		endDay, err := tools.GetIntDataFromJSONByKey(jsonInterface, "Range.end.day")
+		endYear, err := tools.GetIntDataFromJSONByKey(jsonInterface, "Range.end.year")
+		endMonth, err := tools.GetIntDataFromJSONByKey(jsonInterface, "Range.end.month")
 
 		for y := startYear; y <= endYear; y++ {
 			for i := startMonth; i <= endMonth; i++ {
+
 				if i == startMonth {
 					dayToCheck = startDay
 				} else {
@@ -64,12 +56,12 @@ func AddWeek(c echo.Context) error {
 				if i == endMonth {
 					days = endDay
 				} else {
-					days = daysInMonth(i, y)
+					days = tools.DaysInMonth(i, y)
 				}
 
 				for d := dayToCheck; d <= days; d++ {
 					peopleAmount = usherGroupData.UsherAmount
-					dayofWeekMass := daysOfWeek(i, d, y)
+					dayofWeekMass := tools.DaysOfWeek(i, d, y)
 					if usherGroupData.Day == strings.ToLower(dayofWeekMass.String()) {
 						fmt.Printf("\n\n\nstart day\n\n\n")
 						week.Day = d
