@@ -1,29 +1,78 @@
 package controller
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
+	"io"
 	"net/http"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
 	"scheduler-api/tools"
+	"strings"
 )
 
 func SetAbsence(c echo.Context) error {
 	var rangeConfig e.RangeConfig
 	var err error
-	var absense e.Absence
+	var absence e.Absence
 	var userUserGroup []e.UserUsherGroup
+	var usherGroup e.UsherGroup
+
+	buf := new(strings.Builder)
+	io.Copy(buf, c.Request().Body)
+	json.Unmarshal([]byte(buf.String()), &absence)
+	c.Bind(&absence)
+
+	fmt.Println("body")
+	fmt.Println(absence)
+	fmt.Println(absence.ID)
+	fmt.Println(absence.Range)
+
+	fmt.Println("yo here")
+	fmt.Println(absence)
+
+	/*
+		//	var absence e.Absence
+
+		//	jsonBody := make(map[string]interface{})
+		fmt.Println("the body")
+		fmt.Println(c.Request().Body)
+		buf := new(strings.Builder)
+		n, err := io.Copy(buf, c.Request().Body)
+		fmt.Println(n)
+		fmt.Println("the body2")
+		fmt.Println(buf.String())
+		fmt.Println("the body3")
+		fmt.Println([]byte(buf.String()))
+		json.Unmarshal([]byte(buf.String()), &absence)
+		fmt.Println("yo here")
+		fmt.Println(absence)
+		c.Bind(&absence)
+		fmt.Println("yo herytte")
+		fmt.Println(absence)
+	*/
 	//	pageIndex, err := strconv.ParseUint(c.Param("page-index"), 10, 64)
 	//	pageSize, err := strconv.ParseUint(c.Param("page-size"), 10, 64)
 	//field := c.Param("field")
-	fmt.Println("arrivbe11")
+	//	fmt.Println("the c")//
+	//	fmt.Println(c)
+	//	fmt.Println("arrivbe11")
+	//	fmt.Println(c.Request().Body)/
+	//	n, err := io.Copy(buf, c.Request().Body)
+	//	fmt.Println(n)
+	//	fmt.Println(err)
+	//	fmt.Println("the body2ins")
+	//	fmt.Println(buf.String())
+
 	//	order := c.Param("order")
-	err = c.Bind(&absense)
-	fmt.Println(absense.ID)
-	userUserGroup, err = m.GetUserUsherGroupByUser(absense.ID)
+	err = c.Bind(&absence)
+	fmt.Println(absence.ID)
+	userUserGroup, err = m.GetUserUsherGroupByUser(absence.ID)
 	fmt.Println(userUserGroup)
-	jsonInterface := tools.GetJSONRawBody(c)
+
+	jsonInterface := GetJSONRawBody2(c)
 	fmt.Println("arrivbe22")
 	rangeConfig, err = tools.RangeConfiguration(jsonInterface)
 
@@ -36,17 +85,29 @@ func SetAbsence(c echo.Context) error {
 		for i := rangeConfig.StartMonth; i <= rangeConfig.EndMonth; i++ {
 			fmt.Println("arrivbed2")
 			dayToCheck := tools.DaysConfig(rangeConfig, y, i)
-
+			fmt.Println("days to check")
+			fmt.Println(dayToCheck)
+			fmt.Println(dayToCheck.Days)
 			for dayCheck := dayToCheck.DaysToCheck; dayCheck <= dayToCheck.Days; dayCheck++ {
 				fmt.Println("arrivbed3")
 				fmt.Println(len(userUserGroup))
 				for usherGroupCount := 0; usherGroupCount < len(userUserGroup); usherGroupCount++ {
+
 					fmt.Println("arrivbed")
 					dayofWeekMass := tools.DaysOfWeek(i, dayCheck, y)
 					fmt.Println(dayofWeekMass)
 					fmt.Println(userUserGroup)
 					fmt.Println(userUserGroup[usherGroupCount])
-					//				if userUserGroup.Day == strings.ToLower(dayofWeekMass.String()) {
+					fmt.Println(userUserGroup[usherGroupCount].UsherGroup)
+					usherGroup, err = m.GetUsherGroupById(userUserGroup[usherGroupCount].UsherGroup)
+					fmt.Println("the day")
+					fmt.Println(dayofWeekMass.String())
+					fmt.Println("the day check")
+					fmt.Println(usherGroup.Day)
+
+					if usherGroup.Day == strings.ToLower(dayofWeekMass.String()) {
+						fmt.Println("we have arrived")
+					}
 					//					fmt.Printf("\n\n\nstart day\n\n\n")
 					/*					absense.ID = ""
 										absense.
@@ -68,7 +129,7 @@ func SetAbsence(c echo.Context) error {
 
 	//tools.buildRange(c, "UsherGroup")
 
-	var absence e.Absence
+	//var absence e.Absence
 	err2 := c.Bind(&absence)
 
 	//	if err != nil {//
@@ -92,6 +153,44 @@ func SetAbsence(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "")
 
+}
+
+func GetJSONRawBody2(c echo.Context) map[string]interface{} {
+	var absence e.Absence
+	var err error
+	buf2 := new(strings.Builder)
+	fmt.Println("arrivbe11")
+	fmt.Println(c.Request().Body)
+	n, err := io.Copy(buf2, c.Request().Body)
+	fmt.Println(n)
+	fmt.Println(err)
+	fmt.Println("the body2ins")
+	fmt.Println(buf2.String())
+
+	jsonBody := make(map[string]interface{})
+	fmt.Println("the body")
+
+	fmt.Println("the body2")
+	fmt.Println(buf2.String())
+	fmt.Println("the body3")
+	fmt.Println([]byte(buf2.String()))
+	json.Unmarshal([]byte(buf2.String()), &absence)
+	fmt.Println("yo here")
+	fmt.Println(absence)
+
+	fmt.Println("yo herytte")
+	fmt.Println(absence)
+
+	err = json.NewDecoder(c.Request().Body).Decode(&jsonBody)
+	if err != nil {
+
+		log.Error("empty json body")
+		return nil
+	}
+
+	fmt.Println("checking jsonody")
+	fmt.Println(jsonBody)
+	return jsonBody
 }
 
 /*
