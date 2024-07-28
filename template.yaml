@@ -53,12 +53,6 @@ Resources:
             RestApiId: !Ref ApiGateway
             Path: '/auth/sign-out'
             Method: post
-        AbsenseNew:
-          Type: Api
-          Properties:
-            RestApiId: !Ref ApiGateway
-            Path: '/absence/new'
-            Method: post
 
     Metadata:
       BuildMethod: makefile

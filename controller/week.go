@@ -26,7 +26,7 @@ func AddWeek(c echo.Context) error {
 	var peopleAmount int
 
 	//tools.buildRange(c, "UsherGroup")
-	jsonInterface := tools.GetJSONRawBody(c)
+	jsonInterface := tools.GetJSONRawBody(c.Request().Body)
 
 	usherGroups := tools.GetStringArrayDataFromJSONByKey(jsonInterface, "UsherGroup")
 
