@@ -1,6 +1,7 @@
 package tools
 
 import (
+	"fmt"
 	"scheduler-api/entity"
 	"time"
 )
@@ -16,6 +17,8 @@ func RangeConfiguration(jsonInterface map[string]interface{}) (entity.RangeConfi
 	rangeConfig.EndYear, err = GetIntDataFromJSONByKey(jsonInterface, "Range.end.year")
 	rangeConfig.EndMonth, err = GetIntDataFromJSONByKey(jsonInterface, "Range.end.month")
 
+	fmt.Println("start year")
+	fmt.Println(rangeConfig.StartYear)
 	return rangeConfig, err
 }
 
@@ -32,6 +35,8 @@ func DaysOfWeek(m int, d int, year int) time.Weekday {
 func DaysConfig(rangeConfig entity.RangeConfig, y int, i int) entity.DaysConfig {
 	var dayToCheck entity.DaysConfig
 
+	fmt.Println("dagsConfig")
+	fmt.Println(rangeConfig)
 	if i == rangeConfig.StartMonth {
 		dayToCheck.DaysToCheck = rangeConfig.StartDay
 	} else {
