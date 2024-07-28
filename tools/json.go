@@ -2,21 +2,51 @@ package tools
 
 import (
 	"encoding/json"
-	"github.com/labstack/echo/v4"
+	"fmt"
 	"github.com/labstack/gommon/log"
 	"github.com/tidwall/gjson"
+	"io"
+	e "scheduler-api/entity"
+	"strings"
 )
 
-func GetJSONRawBody(c echo.Context) map[string]interface{} {
+func GetJSONRawBody(reader io.Reader) map[string]interface{} {
+	var absence e.Absence
+	var err error
+	buf2 := new(strings.Builder)
+	fmt.Println("arrivbe11")
+	fmt.Println(reader)
+	n, err := io.Copy(buf2, reader)
+	fmt.Println(n)
+	fmt.Println(err)
+	fmt.Println("the body2ins")
+	fmt.Println(buf2.String())
 
 	jsonBody := make(map[string]interface{})
-	err := json.NewDecoder(c.Request().Body).Decode(&jsonBody)
+	fmt.Println("the body")
+	fmt.Println(reader)
+	//	buf := new(strings.Builder)
+	io.Copy(buf2, reader)
+	fmt.Println("the body2")
+	fmt.Println(buf2.String())
+	fmt.Println("the body3")
+	fmt.Println([]byte(buf2.String()))
+	json.Unmarshal([]byte(buf2.String()), &absence)
+	fmt.Println("yo here")
+	fmt.Println(absence)
+
+	fmt.Println("yo herytte")
+	fmt.Println(absence)
+
+	err = json.NewDecoder(reader).Decode(&jsonBody)
 	if err != nil {
 
 		log.Error("empty json body")
 		return nil
 	}
 
+	fmt.Println("checking jsonody")
+	fmt.Println(jsonBody)
 	return jsonBody
 }
 
