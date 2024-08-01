@@ -53,10 +53,8 @@ phases:
     #  - docker push 211125399219.dkr.ecr.us-east-1.amazonaws.com/scheduler-api:latest
    #   - cat /tmp/tmpdj5oxyfv/go.mod
   #    - go build scheduler-api
-
-
-      - sam build --template template.yaml
       - sam validate
+      - sam build --template template.yaml
      # - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
 
     #  - go build scheduler-api
