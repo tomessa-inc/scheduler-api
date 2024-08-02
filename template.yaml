@@ -24,10 +24,6 @@ Conditions:
     - !Equals
       - !Ref DomainName
       - ''
-  UseCertificate: !Not
-    - !Equals
-      - !Ref Certificate
-      - ''
 
 Resources:
     ApiGateway:
