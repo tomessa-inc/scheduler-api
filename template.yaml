@@ -97,7 +97,7 @@ Resources:
             SslSupportMethod: sni-only
           HttpVersion: http2
           Origins:
-            - DomainName: !Sub "${ExpressApi}.execute-api.${AWS::Region}.amazonaws.com"
+            - DomainName: !Sub "${SchedulerApi}.execute-api.${AWS::Region}.amazonaws.com"
               OriginPath: !Sub "/${Stage}"
               Id: ApiOrigin
               CustomOriginConfig:
