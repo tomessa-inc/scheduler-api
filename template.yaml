@@ -1,8 +1,6 @@
-AWSTemplateFormatVersion : '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
-
-Description: An example serverless API and worker written in Golang.
-
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::Serverless-2016-10-31'
+Description: 'Performs a periodic check of the given site, erroring out on test failure.'
 Parameters:
   Stage:
     Type: String
@@ -12,100 +10,93 @@ Parameters:
     Type: String
     Description: Tag for repo
     Default: $Tag
-
-
 Resources:
-  ApiGateway:
-    Type: AWS::Serverless::Api
-    Properties:
-      StageName: !Ref Stage
-      BinaryMediaTypes:
-        - image/png
-        - image/jpg
-        - image/jpeg
-        - multipart/form-data
-  SchedulerApi:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: arn:aws:iam::211125399219:role/lambda-role
-      ImageUri: !Sub '211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:${Tag}'
-      PackageType: Image
-      CodeUri: .
-  #    Runtime: provided.al2023
-  #    Handler: lambda.handler
-      Timeout: 10
-      Events:
-      #  RootHandler:
-      #    Type: Api
-     #     Properties:
-     #       RestApiId: !Ref ApiGateway
-     #       Path: '/'
-     #       Method: get
-        AuthSignIn:
-          Type: Api
-          Properties:
-            RestApiId: !Ref ApiGateway
-            Path: '/auth/sign-in'
-            Method: post
-        AuthSignOut:
-          Type: Api
-          Properties:
-            RestApiId: !Ref ApiGateway
-            Path: '/auth/sign-out'
-            Method: post
+    ApiGateway:
+      Type: AWS::Serverless::Api
+      Properties:
+        StageName: !Ref Stage
+        BinaryMediaTypes:
+          - image/png
+          - image/jpg
+          - image/jpeg
+          - multipart/form-data
+    SchedulerApi:
+      Type: AWS::Serverless::Function
+      Properties:
+        Role: arn:aws:iam::211125399219:role/lambda-role
+        ImageUri: !Sub '211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:${Tag}'
+        PackageType: Image
+        CodeUri: .
+        Timeout: 10
+        Events:
+          RootHandler:
+            Type: Api
+            Properties:
+              RestApiId: !Ref ApiGateway
+              Path: '/'
+              Method: get
+          AuthSignIn:
+            Type: Api
+            Properties:
+              RestApiId: !Ref ApiGateway
+              Path: '/auth/sign-in'
+              Method: post
+          AuthSignOut:
+            Type: Api
+            Properties:
+              RestApiId: !Ref ApiGateway
+              Path: '/auth/sign-out'
+              Method: post
 
-    Metadata:
-      BuildMethod: makefile
+    MyApiRoute53RecordSetGroup:
+      Type: AWS::Route53::RecordSetGroup
+      Condition: UseDomainName
+      Properties:
+        HostedZoneName: !Sub ${ParentDomainName}.
+        RecordSets:
+          - Name: !Sub "${DomainName}."
+            Type: A
+            AliasTarget:
+              EvaluateTargetHealth: true
+              HostedZoneId: Z2FDTNDATAQYW2
+              DNSName: !Sub ${Distribution.DomainName}.
 
-  MyApiRoute53RecordSetGroup:
-    Type: AWS::Route53::RecordSetGroup
-    Condition: UseDomainName
-    Properties:
-      HostedZoneName: !Sub ${ParentDomainName}.
-      RecordSets:
-        - Name: !Sub "${DomainName}."
-          Type: A
-          AliasTarget:
-            EvaluateTargetHealth: true
-            HostedZoneId: Z2FDTNDATAQYW2
-            DNSName: !Sub ${Distribution.DomainName}.
-
-  Distribution:
+    Distribution:
       Type: AWS::CloudFront::Distribution
       Properties:
         DistributionConfig:
-            Enabled: "true"
-            Comment: !Ref AWS::StackName
-            Aliases:
-              - !Ref DomainName
-            CNAMEs:
-              - !Ref DomainName
-            ViewerCertificate:
-                AcmCertificateArn: arn:aws:acm:us-east-1:211125399219:certificate/d2b4cbaf-6289-407e-8483-f9c1f250c4d0
-                SslSupportMethod: sni-only
-            HttpVersion: http2
-            Origins:
-              - DomainName: !Sub "${ExpressApi}.execute-api.${AWS::Region}.amazonaws.com"
-                OriginPath: !Sub "/${Stage}"
-                Id: ApiOrigin
-                CustomOriginConfig:
-                  HTTPPort: 80
-                  HTTPSPort: 443
-                  OriginProtocolPolicy: https-only
-            DefaultCacheBehavior:
-              Compress: "true"
-              AllowedMethods:
-   #             - GET
-                - HEAD
-                - OPTIONS
-                - PUT
-                - POST
-                - PATCH
-                - DELETE
-              TargetOriginId: ApiOrigin
-              ViewerProtocolPolicy: "allow-all"
-          #    CachePolicyId: "742eb823-1ef3-4032-8765-be3ea4bddc50"
-              OriginRequestPolicyId: "b689b0a8-53d0-40ab-baf2-68738e2966ac"
-  Outputs:
-  Endpoint:
-    Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+          Enabled: "true"
+          Comment: !Ref AWS::StackName
+          Aliases:
+            - !Ref DomainName
+          CNAMEs:
+            - !Ref DomainName
+          ViewerCertificate:
+            AcmCertificateArn: arn:aws:acm:us-east-1:211125399219:certificate/d2b4cbaf-6289-407e-8483-f9c1f250c4d0
+            SslSupportMethod: sni-only
+          HttpVersion: http2
+          Origins:
+            - DomainName: !Sub "${ExpressApi}.execute-api.${AWS::Region}.amazonaws.com"
+              OriginPath: !Sub "/${Stage}"
+              Id: ApiOrigin
+              CustomOriginConfig:
+                HTTPPort: 80
+                HTTPSPort: 443
+                OriginProtocolPolicy: https-only
+          DefaultCacheBehavior:
+            Compress: "true"
+            AllowedMethods:
+              #             - GET
+              - HEAD
+              - OPTIONS
+              - PUT
+              - POST
+              - PATCH
+              - DELETE
+            TargetOriginId: ApiOrigin
+            ViewerProtocolPolicy: "allow-all"
+            #    CachePolicyId: "742eb823-1ef3-4032-8765-be3ea4bddc50"
+            OriginRequestPolicyId: "b689b0a8-53d0-40ab-baf2-68738e2966ac"
+Outputs:
+    Endpoint:
+      Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
