@@ -2,6 +2,14 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform: 'AWS::Serverless-2016-10-31'
 Description: 'Performs a periodic check of the given site, erroring out on test failure.'
 Parameters:
+  ParentDomainName:
+    Type: String
+    Description: API Domain name
+    Default: "scheduler.page"
+  DomainName:
+    Type: String
+    Description: API Domain name
+    Default: $DomainName
   Stage:
     Type: String
     Description: Bucket for Images
@@ -10,6 +18,17 @@ Parameters:
     Type: String
     Description: Tag for repo
     Default: $Tag
+
+Conditions:
+  UseDomainName: !Not
+    - !Equals
+      - !Ref DomainName
+      - ''
+  UseCertificate: !Not
+    - !Equals
+      - !Ref Certificate
+      - ''
+
 Resources:
     ApiGateway:
       Type: AWS::Serverless::Api
@@ -56,7 +75,7 @@ Resources:
 
     MyApiRoute53RecordSetGroup:
       Type: AWS::Route53::RecordSetGroup
-   #   Condition: UseDomainName
+      Condition: UseDomainName
       Properties:
         HostedZoneName: !Sub ${ParentDomainName}.
         RecordSets:
