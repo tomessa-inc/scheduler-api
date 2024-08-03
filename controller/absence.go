@@ -25,7 +25,7 @@ func SetAbsence(c echo.Context) error {
 	buf := new(strings.Builder)
 	io.Copy(buf, c.Request().Body)
 	json.Unmarshal([]byte(buf.String()), &absence)
-	c.Bind(&absence)
+	//c.Bind(&absence)
 
 	fmt.Println("body")
 	fmt.Println(absence)
