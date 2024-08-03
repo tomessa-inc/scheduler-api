@@ -17,6 +17,7 @@ region = "us-east-1"
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = false
 Tag="test"
+DomainName="scheduler.page"
 
 
 [default.sync.parameters]

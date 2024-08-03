@@ -54,17 +54,17 @@ phases:
    #   - cat /tmp/tmpdj5oxyfv/go.mod
   #    - go build scheduler-api
       - sam validate
-      - sam build --template template.yaml
+      - sam build --template template-old.yaml
      # - go build -o ./.aws-sam/build/SchedulerApi/scheduler-api
 
     #  - go build scheduler-api
 
 
-      - sam package --template-file template.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - sam package --template-file template-old.yaml --s3-bucket api-stage.scheduler.page --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION
 
 #      - api-stage.scheduler.page
 
-      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION --config-file samconfig.toml --force-upload --parameter-overrides Tag=$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - sam deploy --image-repository 211125399219.dkr.ecr.us-east-1.amazonaws.com/golang:$CODEBUILD_RESOLVED_SOURCE_VERSION --config-file samconfig.toml --force-upload --parameter-overrides Tag=$CODEBUILD_RESOLVED_SOURCE_VERSION  DomainName=api-stage.scheduler.page
 
   #    - echo "In the building process"
   #    - echo $DB_INFO
