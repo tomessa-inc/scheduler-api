@@ -107,7 +107,7 @@ Resources:
           DefaultCacheBehavior:
             Compress: "true"
             AllowedMethods:
-              #             - GET
+              - GET
               - HEAD
               - OPTIONS
               - PUT
