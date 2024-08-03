@@ -9,7 +9,7 @@ Parameters:
   DomainName:
     Type: String
     Description: API Domain name
-    Default: $DomainName
+    Default: "stage.scheduler.com"
   Stage:
     Type: String
     Description: Bucket for Images
