@@ -7,18 +7,20 @@ import (
 	"github.com/labstack/gommon/log"
 	"io"
 	"net/http"
+
+	//	"net/http"
 	e "scheduler-api/entity"
 	m "scheduler-api/model"
-	"scheduler-api/tools"
+	//"scheduler-api/tools"
 	"strings"
 )
 
 func SetAbsence(c echo.Context) error {
-	var rangeConfig e.RangeConfig
-	var err error
+	//var rangeConfig e.RangeConfig
+	//	var err error
 	var absence e.Absence
 	var userUserGroup []e.UserUsherGroup
-	var usherGroup e.UsherGroup
+	//	var usherGroup e.UsherGroup
 
 	buf := new(strings.Builder)
 	io.Copy(buf, c.Request().Body)
@@ -27,6 +29,9 @@ func SetAbsence(c echo.Context) error {
 
 	fmt.Println("body")
 	fmt.Println(absence)
+	fmt.Println("ID")
+	fmt.Println("RANGE")
+
 	fmt.Println(absence.ID)
 	fmt.Println(absence.Range)
 
@@ -67,63 +72,63 @@ func SetAbsence(c echo.Context) error {
 	//	fmt.Println(buf.String())
 
 	//	order := c.Param("order")
-	err = c.Bind(&absence)
+	//	err = c.Bind(&absence)
 	fmt.Println(absence.ID)
-	userUserGroup, err = m.GetUserUsherGroupByUser(absence.ID)
+	//	userUserGroup, err = m.GetUserUsherGroupByUser(absence.ID)
 	fmt.Println(userUserGroup)
 
-	jsonInterface := GetJSONRawBody2(c)
+	//jsonInterface := GetJSONRawBody2(c)
 	fmt.Println("arrivbe22")
-	rangeConfig, err = tools.RangeConfiguration(jsonInterface)
+	/*	rangeConfig, err = tools.RangeConfiguration(jsonInterface)
 
-	if err == nil {
-		return nil
-	}
-	fmt.Println("arrivbed")
-	for y := rangeConfig.StartYear; y <= rangeConfig.EndYear; y++ {
-		fmt.Println("arrivbed1")
-		for i := rangeConfig.StartMonth; i <= rangeConfig.EndMonth; i++ {
-			fmt.Println("arrivbed2")
-			dayToCheck := tools.DaysConfig(rangeConfig, y, i)
-			fmt.Println("days to check")
-			fmt.Println(dayToCheck)
-			fmt.Println(dayToCheck.Days)
-			for dayCheck := dayToCheck.DaysToCheck; dayCheck <= dayToCheck.Days; dayCheck++ {
-				fmt.Println("arrivbed3")
-				fmt.Println(len(userUserGroup))
-				for usherGroupCount := 0; usherGroupCount < len(userUserGroup); usherGroupCount++ {
-
-					fmt.Println("arrivbed")
-					dayofWeekMass := tools.DaysOfWeek(i, dayCheck, y)
-					fmt.Println(dayofWeekMass)
-					fmt.Println(userUserGroup)
-					fmt.Println(userUserGroup[usherGroupCount])
-					fmt.Println(userUserGroup[usherGroupCount].UsherGroup)
-					usherGroup, err = m.GetUsherGroupById(userUserGroup[usherGroupCount].UsherGroup)
-					fmt.Println("the day")
-					fmt.Println(dayofWeekMass.String())
-					fmt.Println("the day check")
-					fmt.Println(usherGroup.Day)
-
-					if usherGroup.Day == strings.ToLower(dayofWeekMass.String()) {
-						fmt.Println("we have arrived")
-					}
-					//					fmt.Printf("\n\n\nstart day\n\n\n")
-					/*					absense.ID = ""
-										absense.
-										//					absense
-										//					absense.Range					week.Day = d
-										week.Hour = usherGroupData.Hour
-										week.Minute = usherGroupData.Minute
-										week.Month = i
-										week.Year = y
-										week.UsherGroup = usherGroupData.ID
-										weekId, err := m.AddWeek(&week) */
-				}
-			}
-
+		if err == nil {
+			return nil
 		}
-	}
+		fmt.Println("arrivbed")
+		for y := rangeConfig.StartYear; y <= rangeConfig.EndYear; y++ {
+			fmt.Println("arrivbed1")
+			for i := rangeConfig.StartMonth; i <= rangeConfig.EndMonth; i++ {
+				fmt.Println("arrivbed2")
+				dayToCheck := tools.DaysConfig(rangeConfig, y, i)
+				fmt.Println("days to check")
+				fmt.Println(dayToCheck)
+				fmt.Println(dayToCheck.Days)
+				for dayCheck := dayToCheck.DaysToCheck; dayCheck <= dayToCheck.Days; dayCheck++ {
+					fmt.Println("arrivbed3")
+					fmt.Println(len(userUserGroup))
+					for usherGroupCount := 0; usherGroupCount < len(userUserGroup); usherGroupCount++ {
+
+						fmt.Println("arrivbed")
+						dayofWeekMass := tools.DaysOfWeek(i, dayCheck, y)
+						fmt.Println(dayofWeekMass)
+						fmt.Println(userUserGroup)
+						fmt.Println(userUserGroup[usherGroupCount])
+						fmt.Println(userUserGroup[usherGroupCount].UsherGroup)
+						usherGroup, err = m.GetUsherGroupById(userUserGroup[usherGroupCount].UsherGroup)
+						fmt.Println("the day")
+						fmt.Println(dayofWeekMass.String())
+						fmt.Println("the day check")
+						fmt.Println(usherGroup.Day)
+
+						if usherGroup.Day == strings.ToLower(dayofWeekMass.String()) {
+							fmt.Println("we have arrived")
+						}
+						//					fmt.Printf("\n\n\nstart day\n\n\n")
+						/*					absense.ID = ""
+											absense.
+											//					absense
+											//					absense.Range					week.Day = d
+											week.Hour = usherGroupData.Hour
+											week.Minute = usherGroupData.Minute
+											week.Month = i
+											week.Year = y
+											week.UsherGroup = usherGroupData.ID
+											weekId, err := m.AddWeek(&week) */
+	//	}
+	//	}
+
+	//	}
+	//}
 
 	//	tools.buildRange(c, "UsherGroup")
 
