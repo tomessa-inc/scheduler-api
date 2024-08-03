@@ -106,14 +106,7 @@ Resources:
                 OriginProtocolPolicy: https-only
           DefaultCacheBehavior:
             Compress: "true"
-            AllowedMethods:
-              - GET
-              - HEAD
-              - OPTIONS
-              - PUT
-              - POST
-              - PATCH
-              - DELETE
+            AllowedMethods: [HEAD, GET]
             TargetOriginId: ApiOrigin
             ViewerProtocolPolicy: "allow-all"
             CachePolicyId: "215fdcd6-70a3-4d28-8314-5ce7a51ef379"
