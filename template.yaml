@@ -92,18 +92,18 @@ Resources:
     #        - !Ref DomainName
    #       CNAMEs:
    #         - !Ref DomainName
-          ViewerCertificate:
-            AcmCertificateArn: arn:aws:acm:us-east-1:211125399219:certificate/d2b4cbaf-6289-407e-8483-f9c1f250c4d0
-            SslSupportMethod: sni-only
-          HttpVersion: http2
-          Origins:
-            - DomainName: !Sub "${SchedulerApi}.execute-api.${AWS::Region}.amazonaws.com"
-              OriginPath: !Sub "/${Stage}"
-              Id: ApiOrigin
-              CustomOriginConfig:
-                HTTPPort: 80
-                HTTPSPort: 443
-                OriginProtocolPolicy: https-only
+    #      ViewerCertificate:
+    #        AcmCertificateArn: arn:aws:acm:us-east-1:211125399219:certificate/d2b4cbaf-6289-407e-8483-f9c1f250c4d0
+    #        SslSupportMethod: sni-only
+      #    HttpVersion: http2
+      #    Origins:
+      #      - DomainName: !Sub "${SchedulerApi}.execute-api.${AWS::Region}.amazonaws.com"
+      #        OriginPath: !Sub "/${Stage}"
+      #        Id: ApiOrigin
+         #     CustomOriginConfig:
+        #        HTTPPort: 80
+       #         HTTPSPort: 443
+      #          OriginProtocolPolicy: https-only
           DefaultCacheBehavior:
             Compress: "true"
             AllowedMethods: [HEAD, GET]
