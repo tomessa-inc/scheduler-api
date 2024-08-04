@@ -22,6 +22,9 @@ func SetAbsence(c echo.Context) error {
 	var userUserGroup []e.UserUsherGroup
 	//	var usherGroup e.UsherGroup
 
+	fmt.Println("body2")
+	fmt.Println(c.Request().Body)
+
 	buf := new(strings.Builder)
 	io.Copy(buf, c.Request().Body)
 	json.Unmarshal([]byte(buf.String()), &absence)
