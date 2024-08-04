@@ -15,33 +15,43 @@ import (
 	"strings"
 )
 
+func boo(c echo.Context) {
+	fmt.Println("body2")
+	fmt.Println(c.Request().Body)
+
+}
+
 func SetAbsence(c echo.Context) error {
 	//var rangeConfig e.RangeConfig
 	//	var err error
 	var absence e.Absence
 	var userUserGroup []e.UserUsherGroup
+
 	//	var usherGroup e.UsherGroup
-
-	fmt.Println("body2")
+	fmt.Println("body1")
 	fmt.Println(c.Request().Body)
+	boo(c)
+	/*
+	   ////	fmt.Println("body2")
+	   	fmt.Println(c.Request().Body)
 
-	buf := new(strings.Builder)
-	io.Copy(buf, c.Request().Body)
-	json.Unmarshal([]byte(buf.String()), &absence)
-	//c.Bind(&absence)
+	   	buf := new(strings.Builder)
+	   	io.Copy(buf, c.Request().Body)
+	   	json.Unmarshal([]byte(buf.String()), &absence)
+	   	//c.Bind(&absence)
 
-	fmt.Println("body")
-	fmt.Println(absence)
-	fmt.Println("ID")
-	fmt.Println("RANGE")
+	   	fmt.Println("body")
+	   	fmt.Println(absence)
+	   	fmt.Println("ID")
+	   	fmt.Println("RANGE")
 
-	fmt.Println(absence.ID)
-	fmt.Println("the start")
-	fmt.Println(absence.Range.Start)
+	   	fmt.Println(absence.ID)
+	   	fmt.Println("the start")
+	   	fmt.Println(absence.Range.Start)
 
-	fmt.Println("yo here")
-	fmt.Println(absence)
-
+	   	fmt.Println("yo here")
+	   	fmt.Println(absence)
+	*/
 	/*
 		//	var absence e.Absence
 
