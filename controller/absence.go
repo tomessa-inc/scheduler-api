@@ -36,7 +36,8 @@ func SetAbsence(c echo.Context) error {
 	fmt.Println("RANGE")
 
 	fmt.Println(absence.ID)
-	fmt.Println(absence.Range)
+	fmt.Println("the start")
+	fmt.Println(absence.Range.Start)
 
 	fmt.Println("yo here")
 	fmt.Println(absence)

@@ -2,5 +2,9 @@ package entity
 
 type Absence struct {
 	ID    string `db:"id"`
-	Range string `db:"user"`
+	Range Range
+}
+type Range struct {
+	Start Start
+	End   End
 }
