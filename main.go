@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	echoadapter "github.com/awslabs/aws-lambda-go-api-proxy/echo"
@@ -92,6 +93,8 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 
 		body := strings.NewReader(request.Body)
 
+		fmt.Println("the first body")
+		fmt.Println(body)
 		req := httptest.NewRequest(request.HTTPMethod, request.Path, body)
 		for k, v := range request.Headers {
 			req.Header.Add(k, v)
