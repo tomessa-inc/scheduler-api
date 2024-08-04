@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	echoadapter "github.com/awslabs/aws-lambda-go-api-proxy/echo"
@@ -15,7 +14,6 @@ import (
 	c "scheduler-api/config"
 	"scheduler-api/db"
 	r "scheduler-api/routes"
-	"scheduler-api/tools"
 	"strings"
 )
 
@@ -93,16 +91,9 @@ func main() {
 func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
 	return func(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-		fmt.Println("begin")
 		body := strings.NewReader(request.Body)
 
-		fmt.Println("the first body")
-		fmt.Println(body)
-		bodyIoReader, err := tools.ConvertJSONToIoReader(body)
-		fmt.Println("the first body")
-		fmt.Println(bodyIoReader)
 		req, err := http.NewRequest(request.HTTPMethod, request.Path, body)
-		//req := httptest.NewRequest(request.HTTPMethod, request.Path, bodyIoReader)
 		for k, v := range request.Headers {
 			req.Header.Add(k, v)
 		}
@@ -113,19 +104,8 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		}
 		e.AcquireContext().Request()
 		req.URL.RawQuery = q.Encode()
-		fmt.Println("the first body222")
-		fmt.Println(req)
-		fmt.Println("the first tttt")
-		fmt.Println(req.Body)
-		fmt.Println("the request")
-		//response := e.AcquireContext().Response()
-		fmt.Println(request)
-		rec := httptest.NewRecorder()
-		fmt.Println("the rec created")
-		e.ServeHTTP(rec, req)
-		fmt.Println("server started")
-		//		e.ServeHTTP(rec, req)
 
+		rec := httptest.NewRecorder()
 		res := rec.Result()
 
 		responseBody, err := io.ReadAll(res.Body)
