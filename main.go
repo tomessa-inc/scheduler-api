@@ -82,12 +82,6 @@ func main() {
 		lambda.Start(server)
 	} else {
 
-		//	rec := httptest.NewRecorder()
-		//	e.ServeHTTP(rec, e.AcquireContext().Request())
-
-		//wrapRouter(e)
-
-		//e.Start(":*")
 		e.Logger.Fatal(e.Start(":3500"))
 	}
 
@@ -127,7 +121,9 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		//response := e.AcquireContext().Response()
 
 		rec := httptest.NewRecorder()
+		fmt.Println("the rec created")
 		e.ServeHTTP(rec, e.AcquireContext().Request())
+		fmt.Println("server started")
 		//		e.ServeHTTP(rec, req)
 
 		res := rec.Result()
