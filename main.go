@@ -94,6 +94,7 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		body := strings.NewReader(request.Body)
 
 		req, err := http.NewRequest(request.HTTPMethod, request.Path, body)
+		//req := httptest.NewRequest(request.HTTPMethod, request.Path, bodyIoReader)
 		for k, v := range request.Headers {
 			req.Header.Add(k, v)
 		}
@@ -106,6 +107,7 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		req.URL.RawQuery = q.Encode()
 
 		rec := httptest.NewRecorder()
+		e.ServeHTTP(rec, req)
 		res := rec.Result()
 
 		responseBody, err := io.ReadAll(res.Body)
