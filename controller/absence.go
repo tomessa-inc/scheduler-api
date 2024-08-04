@@ -16,9 +16,14 @@ import (
 )
 
 func boo(c echo.Context) {
+	var absence e.Absence
 	fmt.Println("body2")
 	fmt.Println(c.Request().Body)
-
+	buf := new(strings.Builder)
+	io.Copy(buf, c.Request().Body)
+	json.Unmarshal([]byte(buf.String()), &absence)
+	fmt.Println("body3")
+	fmt.Println(absence.ID)
 }
 
 func SetAbsence(c echo.Context) error {
