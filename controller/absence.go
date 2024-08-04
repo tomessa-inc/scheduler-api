@@ -24,6 +24,7 @@ func boo(c echo.Context) {
 	json.Unmarshal([]byte(buf.String()), &absence)
 	fmt.Println("body3")
 	fmt.Println(absence.ID)
+	fmt.Println(absence.Range.Start)
 }
 
 func SetAbsence(c echo.Context) error {
