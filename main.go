@@ -101,7 +101,7 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		bodyIoReader, err := tools.ConvertJSONToIoReader(body)
 		fmt.Println("the first body")
 		fmt.Println(bodyIoReader)
-		req, err := http.NewRequest(request.HTTPMethod, request.Path, bodyIoReader)
+		req, err := http.NewRequest(request.HTTPMethod, request.Path, body)
 		//req := httptest.NewRequest(request.HTTPMethod, request.Path, bodyIoReader)
 		for k, v := range request.Headers {
 			req.Header.Add(k, v)
