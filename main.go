@@ -105,7 +105,8 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 			q.Add(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
-
+		fmt.Println("the first body222")
+		fmt.Println(req)
 		rec := httptest.NewRecorder()
 		e.ServeHTTP(rec, req)
 
