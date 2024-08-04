@@ -15,6 +15,7 @@ import (
 	c "scheduler-api/config"
 	"scheduler-api/db"
 	r "scheduler-api/routes"
+	"scheduler-api/tools"
 	"strings"
 )
 
@@ -80,8 +81,16 @@ func main() {
 
 		lambda.Start(server)
 	} else {
+
+		//	rec := httptest.NewRecorder()
+		//	e.ServeHTTP(rec, e.AcquireContext().Request())
+
+		//wrapRouter(e)
+
+		//e.Start(":*")
 		e.Logger.Fatal(e.Start(":3500"))
 	}
+
 	//e.Start()
 	//e.Logger.Fatal(e.Start(":3500"))
 	//lambda.Start(Handler)
@@ -90,12 +99,16 @@ func main() {
 func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
 	return func(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-
+		fmt.Println("begin")
 		body := strings.NewReader(request.Body)
 
 		fmt.Println("the first body")
 		fmt.Println(body)
-		req := httptest.NewRequest(request.HTTPMethod, request.Path, body)
+		bodyIoReader, err := tools.ConvertJSONToIoReader(body)
+		fmt.Println("the first body")
+		fmt.Println(bodyIoReader)
+
+		req := httptest.NewRequest(request.HTTPMethod, request.Path, bodyIoReader)
 		for k, v := range request.Headers {
 			req.Header.Add(k, v)
 		}
@@ -104,14 +117,18 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		for k, v := range request.QueryStringParameters {
 			q.Add(k, v)
 		}
+		e.AcquireContext().Request()
 		req.URL.RawQuery = q.Encode()
 		fmt.Println("the first body222")
 		fmt.Println(req)
 		fmt.Println("the first tttt")
 		fmt.Println(req.Body)
 
+		//response := e.AcquireContext().Response()
+
 		rec := httptest.NewRecorder()
-		e.ServeHTTP(rec, req)
+		e.ServeHTTP(rec, e.AcquireContext().Request())
+		//		e.ServeHTTP(rec, req)
 
 		res := rec.Result()
 
@@ -122,6 +139,7 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		}
 
 		return formatAPIResponse(res.StatusCode, res.Header, string(responseBody))
+
 	}
 }
 
