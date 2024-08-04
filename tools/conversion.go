@@ -150,7 +150,7 @@ func GetStringArrayDataFromJSONByKey(jsonInterface map[string]interface{}, key s
 	return valueString
 }
 
-func GetJSONRawBody2(c echo.Context) {
+func GetJSONRawBody3(c echo.Context) {
 	fmt.Println("start of addweek2")
 	my_data := echo.Map{}
 
