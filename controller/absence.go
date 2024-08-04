@@ -7,6 +7,7 @@ import (
 	"github.com/labstack/gommon/log"
 	"io"
 	"net/http"
+	"scheduler-api/tools"
 
 	//	"net/http"
 	e "scheduler-api/entity"
@@ -33,10 +34,13 @@ func SetAbsence(c echo.Context) error {
 	var absence e.Absence
 	var userUserGroup []e.UserUsherGroup
 
-	//	var usherGroup e.UsherGroup
-	fmt.Println("body1")
-	fmt.Println(c.Request().Body)
-	boo(c)
+	buffer := tools.GetJSONRawBody(c)
+	json.Unmarshal([]byte(buffer.String()), &absence)
+
+	fmt.Println(absence.ID)
+	fmt.Println("the start")
+	fmt.Println(absence.Range.Start)
+
 	/*
 	   ////	fmt.Println("body2")
 	   	fmt.Println(c.Request().Body)
