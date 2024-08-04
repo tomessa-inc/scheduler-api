@@ -1,6 +1,7 @@
 package tools
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -36,6 +37,29 @@ func ConvertGibsonBytesToInt(stringData gjson.Result) (int, error) {
 	//intNumberMonth, err := strconv.Atoi(startMonth)
 	//	fmt.Printf("json stirng data marsh int: %d\n", intData)
 	return intData, err
+}
+
+func ConvertJSONToIoReader(jsonInterface interface{}) (io.Reader, error) {
+	jsonBytes, err := json.Marshal(jsonInterface)
+	stringData := bytes.NewReader([]byte(jsonBytes))
+	//valueInt := ConvertGibsonBytesToString(jsonBytes)
+	//	fmt.Printf("json stirng data marsh int: %d\n", valueInt)
+	return stringData, err
+	/*
+		if err := json.Unmarshal([]byte(str), &i); err != nil {
+			fmt.Println("ugh: ", err)
+		}
+
+		fmt.Println("info: ", i)
+		fmt.Println("currency: ", i.Data.Currency)
+
+		//	fmt.Printf("json stirng data marsh string hwerw: %s\n", stringData)
+		//	fmt.Printf("json stirng data marsh string raw: %s\n", stringData.Raw)
+		intData, err := strconv.Atoi(string([]byte(stringData.Raw)))
+		//	intData, err := strconv.Atoi(stringData)
+		//intNumberMonth, err := strconv.Atoi(startMonth)
+		//	fmt.Printf("json stirng data marsh int: %d\n", intData)
+		return intData, err */
 }
 
 func ConvertJSONToString(jsonInterface interface{}) (string, error) {
