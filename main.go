@@ -117,9 +117,9 @@ func wrapRouter(e *echo.Echo) func(ctx context.Context, request events.APIGatewa
 		fmt.Println(req)
 		fmt.Println("the first tttt")
 		fmt.Println(req.Body)
-
+		fmt.Println("the request")
 		//response := e.AcquireContext().Response()
-
+		fmt.Println(e.AcquireContext().Request())
 		rec := httptest.NewRecorder()
 		fmt.Println("the rec created")
 		e.ServeHTTP(rec, e.AcquireContext().Request())
